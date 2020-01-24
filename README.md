@@ -34,6 +34,9 @@ We have a fully fork version of `libp2p/go-libp2p-core` at [RTradeLtd/libp2px-co
 * Removal of `go-log` replaced with pure zap logging
 * Transports have no logging as they were relying on gobally initialized loggers
   * With the current method of using transports, it's impossible to use logging there with non-global loggers, at some point in time this may be refactored and changed.
+* All libp2p dependencies from the libp2p organization have been forked, and stored in this repository as a "mono repo"
+  * The exceptions to this are the core, and openssl repos.
+
 ## Compatability Issues
 
 ### Confirmed
