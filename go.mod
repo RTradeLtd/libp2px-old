@@ -1,7 +1,7 @@
 module github.com/RTradeLtd/libp2px
 
 require (
-	github.com/RTradeLtd/libp2px-core v0.0.1
+	github.com/RTradeLtd/libp2px-core v0.0.2
 	github.com/gogo/protobuf v1.3.1
 	github.com/gorilla/websocket v1.4.1
 	github.com/hashicorp/golang-lru v0.5.3
