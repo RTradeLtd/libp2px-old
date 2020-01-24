@@ -105,9 +105,6 @@ func (l *listener) handleIncoming() {
 			select {
 			case l.incoming <- conn:
 			case <-ctx.Done():
-				if l.ctx.Err() == nil {
-					// Listener *not* closed but the accept timeout expired.
-				}
 				// Wait on the context with a timeout. This way,
 				// if we stop accepting connections for some reason,
 				// we'll eventually close all the open ones

@@ -465,7 +465,6 @@ func (mp *Multiplex) sendResetMsg(header uint64, hard bool) {
 	if err != nil && !mp.isShutdown() {
 		if hard {
 			mp.Close()
-		} else {
 		}
 	}
 }

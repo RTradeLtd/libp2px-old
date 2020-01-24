@@ -156,8 +156,6 @@ func (nat *NAT) NewMapping(protocol string, port int) (Mapping, error) {
 }
 
 func (nat *NAT) establishMapping(m *mapping) {
-	oldport := m.ExternalPort()
-
 	comment := "libp2p"
 
 	nat.natmu.Lock()
@@ -176,6 +174,4 @@ func (nat *NAT) establishMapping(m *mapping) {
 	}
 
 	m.setExternalPort(newport)
-	if oldport != 0 && newport != oldport {
-	}
 }

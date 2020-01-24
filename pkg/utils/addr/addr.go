@@ -2,6 +2,7 @@ package addrutil
 
 import (
 	"fmt"
+	"log"
 
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr-net"
@@ -168,6 +169,7 @@ func CheckNATWarning(observed, expected ma.Multiaddr, listen []ma.Multiaddr) {
 	}
 
 	if !AddrInList(observed, listen) { // probably a nat
+		log.Println(natWarning)
 	}
 }
 
