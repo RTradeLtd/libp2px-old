@@ -66,7 +66,15 @@ In terms of support for using this library from RTrade, we will be more than hap
 * `pkg` is where all the extra libp2p repositories are. For example things like `go-libp2p-loggables`, `go-libp2p-buffer-pool`, and all transports are here.
 * `p2p` is equivalent
 
+## pkg
 
+`pkg` contains various packages that may be useful to other users of `libp2px` including:
+
+* `transports` which contains a variety of transports 
+  * a `transport` is essentially something responisble for defining a method of connecting two different peers
+* `muxers` which contains a variety of connection muxers
+  * a `muxer` is responsible for multiplexing different conenctions
+  
 # License
 
 All original code is licensed under MIT+Apache, and we've included all the previous licenses. New code (aka, newly added transports, etc...) will be added with AGPLv3 licenses.

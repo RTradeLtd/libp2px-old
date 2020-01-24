@@ -5,7 +5,7 @@ import (
 
 	"github.com/RTradeLtd/libp2px-core/mux"
 
-	mp "github.com/RTradeLtd/libp2px/pkg/mplex"
+	mp "github.com/RTradeLtd/libp2px/pkg/muxers/mplex"
 )
 
 type conn struct {
