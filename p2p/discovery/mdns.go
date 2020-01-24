@@ -14,7 +14,7 @@ import (
 
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr-net"
-	"github.com/whyrusleeping/mdns"
+	"github.com/RTradeLtd/libp2px/pkg/mdns"
 )
 
 func init() {
