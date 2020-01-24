@@ -12,14 +12,13 @@ import (
 	"time"
 
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
-	logging "github.com/ipfs/go-log"
+	"go.uber.org/zap"
 )
 
-var log = logging.Logger("mplex")
-
+// MaxMessageSize defines the maximum message size
 var MaxMessageSize = 1 << 20
 
-// Max time to block waiting for a slow reader to read from a stream before
+// ReceiveTimeout is time to block waiting for a slow reader to read from a stream before
 // resetting it. Preferably, we'd have some form of back-pressure mechanism but
 // we don't have that in this protocol.
 var ReceiveTimeout = 5 * time.Second
@@ -38,9 +37,11 @@ var errTimeout = timeout{}
 var errStreamClosed = errors.New("stream closed")
 
 var (
-	NewStreamTimeout   = time.Minute
+	// NewStreamTimeout is the default new stream timeout
+	NewStreamTimeout = time.Minute
+	// ResetStreamTimeout is the default stream reset timeout
 	ResetStreamTimeout = 2 * time.Minute
-
+	// WriteCoalesceDelay is the default coalesce delay
 	WriteCoalesceDelay = 100 * time.Microsecond
 )
 
@@ -85,10 +86,11 @@ type Multiplex struct {
 
 	channels map[streamID]*Stream
 	chLock   sync.Mutex
+	logger   *zap.Logger
 }
 
 // NewMultiplex creates a new multiplexer session.
-func NewMultiplex(con net.Conn, initiator bool) *Multiplex {
+func NewMultiplex(logger *zap.Logger, con net.Conn, initiator bool) *Multiplex {
 	mp := &Multiplex{
 		con:        con,
 		initiator:  initiator,
@@ -123,15 +125,15 @@ func (mp *Multiplex) newStream(id streamID, name string) (s *Stream) {
 }
 
 // Accept accepts the next stream from the connection.
-func (m *Multiplex) Accept() (*Stream, error) {
+func (mp *Multiplex) Accept() (*Stream, error) {
 	select {
-	case s, ok := <-m.nstreams:
+	case s, ok := <-mp.nstreams:
 		if !ok {
 			return nil, errors.New("multiplex closed")
 		}
 		return s, nil
-	case <-m.closed:
-		return nil, m.shutdownErr
+	case <-mp.closed:
+		return nil, mp.shutdownErr
 	}
 }
 
@@ -197,8 +199,7 @@ func (mp *Multiplex) handleOutgoing() {
 			err := mp.doWriteMsg(data)
 			pool.Put(data)
 			if err != nil {
-				// the connection is closed by this time
-				log.Warn("error writing data: %s", err.Error())
+				mp.logger.Warn("error writing data", zap.Error(err))
 				return
 			}
 		}
@@ -333,7 +334,7 @@ func (mp *Multiplex) handleIncoming() {
 		switch tag {
 		case newStreamTag:
 			if ok {
-				log.Debugf("received NewStream message for existing stream: %d", ch)
+				mp.logger.Debug("received message for existing stream", zap.Uint64("stream.id", ch.id))
 				mp.shutdownErr = ErrInvalidState
 				return
 			}
@@ -410,7 +411,6 @@ func (mp *Multiplex) handleIncoming() {
 
 				// This is a perfectly valid case when we reset
 				// and forget about the stream.
-				log.Debugf("message for non-existant stream, dropping data: %d", ch)
 				// go mp.sendResetMsg(ch.header(resetTag), false)
 				continue
 			}
@@ -421,8 +421,7 @@ func (mp *Multiplex) handleIncoming() {
 			if remoteClosed {
 				// closed stream, return b
 				pool.Put(b)
-
-				log.Warn("Received data from remote after stream was closed by them. (len = %d)", len(b))
+				mp.logger.Warn("received data after stream was closed by peer")
 				// go mp.sendResetMsg(msch.id.header(resetTag), false)
 				continue
 			}
@@ -434,7 +433,7 @@ func (mp *Multiplex) handleIncoming() {
 				pool.Put(b)
 			case <-recvTimeout.C:
 				pool.Put(b)
-				log.Warn("timed out receiving message into stream queue.")
+				mp.logger.Warn("timeout receiving message in stream queue")
 				// Do not do this asynchronously. Otherwise, we
 				// could drop a message, then receive a message,
 				// then reset.
@@ -448,7 +447,7 @@ func (mp *Multiplex) handleIncoming() {
 				<-recvTimeout.C
 			}
 		default:
-			log.Debugf("message with unknown header on stream %s", ch)
+			mp.logger.Debug("message with unknown header on stream", zap.Uint64("stream.id", ch.id))
 			if ok {
 				msch.Reset()
 			}
@@ -472,10 +471,10 @@ func (mp *Multiplex) sendResetMsg(header uint64, hard bool) {
 	err := mp.sendMsg(ctx.Done(), header, nil)
 	if err != nil && !mp.isShutdown() {
 		if hard {
-			log.Warn("error sending reset message: %s; killing connection", err.Error())
+			mp.logger.Warn("error sending reset message killing connection", zap.Error(err))
 			mp.Close()
 		} else {
-			log.Debugf("error sending reset message: %s", err.Error())
+			mp.logger.Debug("error sending reset message", zap.Error(err))
 		}
 	}
 }

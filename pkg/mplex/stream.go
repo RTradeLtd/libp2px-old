@@ -27,6 +27,7 @@ func (id *streamID) header(tag uint64) uint64 {
 	return header
 }
 
+// Stream is a stream !
 type Stream struct {
 	id     streamID
 	name   string
@@ -52,6 +53,7 @@ type Stream struct {
 	doCloseLocal context.CancelFunc
 }
 
+// Name returns the name of the stream
 func (s *Stream) Name() string {
 	return s.name
 }
@@ -179,6 +181,7 @@ func (s *Stream) isClosed() bool {
 	return s.closedLocal.Err() != nil
 }
 
+// Close shuts down the stream
 func (s *Stream) Close() error {
 	ctx, cancel := context.WithTimeout(context.Background(), ResetStreamTimeout)
 	defer cancel()
@@ -203,13 +206,13 @@ func (s *Stream) Close() error {
 	}
 
 	if err != nil && !s.mp.isShutdown() {
-		log.Warn("error closing stream: %s; killing connection", err.Error())
 		s.mp.Close()
 	}
 
 	return err
 }
 
+// Reset is used to reset the stream
 func (s *Stream) Reset() error {
 	s.clLock.Lock()
 
@@ -248,6 +251,7 @@ func (s *Stream) cancelDeadlines() {
 	s.wDeadline.set(time.Time{})
 }
 
+// SetDeadline sets a general deadline timeout
 func (s *Stream) SetDeadline(t time.Time) error {
 	s.clLock.Lock()
 	defer s.clLock.Unlock()
@@ -267,6 +271,7 @@ func (s *Stream) SetDeadline(t time.Time) error {
 	return nil
 }
 
+// SetReadDeadline sets the read deadline timeout
 func (s *Stream) SetReadDeadline(t time.Time) error {
 	s.clLock.Lock()
 	defer s.clLock.Unlock()
@@ -279,6 +284,7 @@ func (s *Stream) SetReadDeadline(t time.Time) error {
 	return nil
 }
 
+// SetWriteDeadline sets the write deadline timeout
 func (s *Stream) SetWriteDeadline(t time.Time) error {
 	s.clLock.Lock()
 	defer s.clLock.Unlock()

@@ -27,6 +27,7 @@ type memoryPeerMetadata struct {
 
 var _ pstore.PeerMetadata = (*memoryPeerMetadata)(nil)
 
+// NewPeerMetadata returns a new peer metadata storer
 func NewPeerMetadata() pstore.PeerMetadata {
 	return &memoryPeerMetadata{
 		ds:       make(map[metakey]interface{}),

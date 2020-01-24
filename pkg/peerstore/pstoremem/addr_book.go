@@ -7,14 +7,11 @@ import (
 	"time"
 
 	peer "github.com/RTradeLtd/libp2px-core/peer"
-	logging "github.com/ipfs/go-log"
 	ma "github.com/multiformats/go-multiaddr"
 
 	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
 	addr "github.com/RTradeLtd/libp2px/pkg/peerstore/addr"
 )
-
-var log = logging.Logger("peerstore")
 
 type expiringAddr struct {
 	Addr    ma.Multiaddr
@@ -53,6 +50,7 @@ type memoryAddrBook struct {
 
 var _ pstore.AddrBook = (*memoryAddrBook)(nil)
 
+// NewAddrBook returns a new in-memory addrbook
 func NewAddrBook() pstore.AddrBook {
 	ctx, cancel := context.WithCancel(context.Background())
 
@@ -151,7 +149,6 @@ func (mab *memoryAddrBook) AddAddrs(p peer.ID, addrs []ma.Multiaddr, ttl time.Du
 	exp := time.Now().Add(ttl)
 	for _, addr := range addrs {
 		if addr == nil {
-			log.Warn("was passed nil multiaddr for %s", p)
 			continue
 		}
 		asBytes := addr.Bytes()
@@ -194,7 +191,6 @@ func (mab *memoryAddrBook) SetAddrs(p peer.ID, addrs []ma.Multiaddr, ttl time.Du
 	exp := time.Now().Add(ttl)
 	for _, addr := range addrs {
 		if addr == nil {
-			log.Warn("was passed nil multiaddr for %s", p)
 			continue
 		}
 
@@ -290,7 +286,7 @@ func (s *addrSub) pubAddr(a ma.Multiaddr) {
 	}
 }
 
-// An abstracted, pub-sub manager for address streams. Extracted from
+// AddrSubManager is an abstracted, pub-sub manager for address streams. Extracted from
 // memoryAddrBook in order to support additional implementations.
 type AddrSubManager struct {
 	mu   sync.RWMutex

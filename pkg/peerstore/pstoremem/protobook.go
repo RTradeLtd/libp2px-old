@@ -28,6 +28,7 @@ type memoryProtoBook struct {
 
 var _ pstore.ProtoBook = (*memoryProtoBook)(nil)
 
+// NewProtoBook returns a new protocol book
 func NewProtoBook() pstore.ProtoBook {
 	return &memoryProtoBook{
 		interned: make(map[string]string, 256),
