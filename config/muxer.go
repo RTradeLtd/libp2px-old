@@ -3,8 +3,8 @@ package config
 import (
 	"fmt"
 
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/mux"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/mux"
 	msmux "github.com/RTradeLtd/libp2px/pkg/transports/stream-muxer-multistream"
 )
 

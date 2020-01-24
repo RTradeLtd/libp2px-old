@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/transport"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/transport"
 
 	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 )

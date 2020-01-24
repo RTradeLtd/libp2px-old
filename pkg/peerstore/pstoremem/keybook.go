@@ -4,10 +4,10 @@ import (
 	"errors"
 	"sync"
 
-	ic "github.com/RTradeLtd/libp2p-core/crypto"
-	peer "github.com/RTradeLtd/libp2p-core/peer"
+	ic "github.com/RTradeLtd/libp2px-core/crypto"
+	peer "github.com/RTradeLtd/libp2px-core/peer"
 
-	pstore "github.com/RTradeLtd/libp2p-core/peerstore"
+	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
 )
 
 type memoryKeyBook struct {

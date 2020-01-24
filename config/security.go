@@ -3,11 +3,11 @@ package config
 import (
 	"fmt"
 
-	"github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/sec"
-	"github.com/RTradeLtd/libp2p-core/sec/insecure"
+	"github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/sec"
+	"github.com/RTradeLtd/libp2px-core/sec/insecure"
 
 	csms "github.com/RTradeLtd/libp2px/pkg/transports/conn-security-multistream"
 )

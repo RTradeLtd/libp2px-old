@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 // BackoffConnector is a utility to connect to peers, but only if we have not recently tried connecting to them already

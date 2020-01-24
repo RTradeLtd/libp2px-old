@@ -3,9 +3,9 @@ package stream
 import (
 	"fmt"
 
-	"github.com/RTradeLtd/libp2p-core/mux"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/transport"
+	"github.com/RTradeLtd/libp2px-core/mux"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/transport"
 )
 
 type transportConn struct {

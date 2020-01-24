@@ -7,11 +7,11 @@ import (
 	"sort"
 	"sync"
 
-	ic "github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/peerstore"
+	ic "github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
 	"go.uber.org/zap"
 
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"

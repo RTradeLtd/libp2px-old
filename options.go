@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/RTradeLtd/libp2p-core/connmgr"
-	"github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/metrics"
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/peerstore"
-	"github.com/RTradeLtd/libp2p-core/pnet"
+	"github.com/RTradeLtd/libp2px-core/connmgr"
+	"github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/metrics"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/pnet"
 
 	config "github.com/RTradeLtd/libp2px/config"
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"

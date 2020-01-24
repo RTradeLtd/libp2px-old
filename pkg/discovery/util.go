@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 
 	logging "github.com/ipfs/go-log"
 )

@@ -4,9 +4,9 @@ import (
 	"container/list"
 	"sync"
 
-	ic "github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	ic "github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	"go.uber.org/zap/zaptest"
 
 	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"

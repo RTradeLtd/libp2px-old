@@ -11,9 +11,9 @@ import (
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"
 	"go.uber.org/zap/zaptest"
 
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/network"
-	protocol "github.com/RTradeLtd/libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	protocol "github.com/RTradeLtd/libp2px-core/protocol"
 	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 	u "github.com/ipfs/go-ipfs-util"
 )

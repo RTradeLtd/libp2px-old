@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	inet "github.com/RTradeLtd/libp2p-core/network"
-	peer "github.com/RTradeLtd/libp2p-core/peer"
+	inet "github.com/RTradeLtd/libp2px-core/network"
+	peer "github.com/RTradeLtd/libp2px-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

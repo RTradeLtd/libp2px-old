@@ -10,11 +10,11 @@ import (
 
 	pb "github.com/RTradeLtd/libp2px/pkg/transports/circuit/pb"
 
-	"github.com/RTradeLtd/libp2p-core/helpers"
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/helpers"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
 
 	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"

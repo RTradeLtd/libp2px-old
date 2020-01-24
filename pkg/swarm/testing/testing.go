@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/RTradeLtd/libp2p-core/metrics"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/metrics"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
 	tnet "github.com/RTradeLtd/libp2px/pkg/testing/net"
 	"github.com/RTradeLtd/libp2px/pkg/transports/tcp"
 

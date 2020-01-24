@@ -3,7 +3,7 @@ package autonat
 import (
 	pb "github.com/RTradeLtd/libp2px/pkg/autonat/pb"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 
 	logging "github.com/ipfs/go-log"
 )

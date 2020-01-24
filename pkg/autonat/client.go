@@ -5,12 +5,12 @@ import (
 	"fmt"
 
 	pb "github.com/RTradeLtd/libp2px/pkg/autonat/pb"
-	"github.com/RTradeLtd/libp2p-core/helpers"
+	"github.com/RTradeLtd/libp2px-core/helpers"
 
 	ggio "github.com/gogo/protobuf/io"
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

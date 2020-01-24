@@ -3,8 +3,8 @@ package tnet
 import (
 	"testing"
 
-	ci "github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	ci "github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

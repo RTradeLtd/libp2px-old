@@ -6,7 +6,7 @@ import (
 	config "github.com/RTradeLtd/libp2px/config"
 	"go.uber.org/zap"
 
-	"github.com/RTradeLtd/libp2p-core/host"
+	"github.com/RTradeLtd/libp2px-core/host"
 )
 
 // Config describes a set of settings for a libp2p node

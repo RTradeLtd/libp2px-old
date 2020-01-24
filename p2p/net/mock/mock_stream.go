@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/network"
-	protocol "github.com/RTradeLtd/libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/network"
+	protocol "github.com/RTradeLtd/libp2px-core/protocol"
 )
 
 // stream implements network.Stream

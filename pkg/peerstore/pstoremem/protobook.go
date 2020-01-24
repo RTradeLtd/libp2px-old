@@ -3,9 +3,9 @@ package pstoremem
 import (
 	"sync"
 
-	peer "github.com/RTradeLtd/libp2p-core/peer"
+	peer "github.com/RTradeLtd/libp2px-core/peer"
 
-	pstore "github.com/RTradeLtd/libp2p-core/peerstore"
+	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
 )
 
 type protoSegment struct {

@@ -2,13 +2,13 @@ package discovery
 
 import (
 	"context"
-	"github.com/RTradeLtd/libp2p-core/discovery"
+	"github.com/RTradeLtd/libp2px-core/discovery"
 	"time"
 
 	cid "github.com/ipfs/go-cid"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/routing"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/routing"
 
 	mh "github.com/multiformats/go-multihash"
 )

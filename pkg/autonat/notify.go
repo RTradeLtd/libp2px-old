@@ -3,7 +3,7 @@ package autonat
 import (
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/network"
+	"github.com/RTradeLtd/libp2px-core/network"
 
 	ma "github.com/multiformats/go-multiaddr"
 )

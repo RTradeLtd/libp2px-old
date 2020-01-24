@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/RTradeLtd/libp2p-core/network"
+	"github.com/RTradeLtd/libp2px-core/network"
 	inat "github.com/RTradeLtd/libp2px/pkg/utils/nat"
 	ma "github.com/multiformats/go-multiaddr"
 )

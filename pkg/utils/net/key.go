@@ -6,10 +6,10 @@ import (
 	"io"
 	"testing"
 
-	ic "github.com/RTradeLtd/libp2p-core/crypto"
-	pb "github.com/RTradeLtd/libp2p-core/crypto/pb"
+	ic "github.com/RTradeLtd/libp2px-core/crypto"
+	pb "github.com/RTradeLtd/libp2px-core/crypto/pb"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 
 	tnet "github.com/RTradeLtd/libp2px/pkg/testing/net"
 

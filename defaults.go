@@ -5,7 +5,7 @@ package libp2p
 import (
 	"crypto/rand"
 
-	crypto "github.com/RTradeLtd/libp2p-core/crypto"
+	crypto "github.com/RTradeLtd/libp2px-core/crypto"
 	pstoremem "github.com/RTradeLtd/libp2px/pkg/peerstore/pstoremem"
 	mplex "github.com/RTradeLtd/libp2px/pkg/transports/mplex"
 	secio "github.com/RTradeLtd/libp2px/pkg/transports/secio"

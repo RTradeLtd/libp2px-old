@@ -12,7 +12,7 @@ import (
 	"crypto/sha512"
 	"hash"
 
-	ci "github.com/RTradeLtd/libp2p-core/crypto"
+	ci "github.com/RTradeLtd/libp2px-core/crypto"
 	sha256 "github.com/minio/sha256-simd"
 )
 

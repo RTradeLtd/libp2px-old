@@ -4,13 +4,13 @@ import (
 	"context"
 	"testing"
 
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"
 	"go.uber.org/zap/zaptest"
 
-	mux "github.com/RTradeLtd/libp2p-core/mux"
+	mux "github.com/RTradeLtd/libp2px-core/mux"
 	yamux "github.com/RTradeLtd/libp2px/pkg/transports/yamux"
 )
 

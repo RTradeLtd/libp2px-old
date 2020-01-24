@@ -3,7 +3,7 @@ package peerstream_multiplex
 import (
 	"net"
 
-	"github.com/RTradeLtd/libp2p-core/mux"
+	"github.com/RTradeLtd/libp2px-core/mux"
 
 	mp "github.com/RTradeLtd/libp2px/pkg/mplex"
 )

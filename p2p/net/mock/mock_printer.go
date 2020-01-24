@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 // separate object so our interfaces are separate :)

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
-	pstore "github.com/RTradeLtd/libp2p-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
 )
 
 var _ pstore.Peerstore = (*peerstore)(nil)

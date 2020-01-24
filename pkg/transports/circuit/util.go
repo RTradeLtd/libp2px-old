@@ -7,7 +7,7 @@ import (
 
 	pb "github.com/RTradeLtd/libp2px/pkg/transports/circuit/pb"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 
 	ggio "github.com/gogo/protobuf/io"
 	proto "github.com/gogo/protobuf/proto"

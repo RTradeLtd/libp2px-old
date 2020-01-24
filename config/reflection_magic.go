@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/RTradeLtd/libp2p-core/host"
+	"github.com/RTradeLtd/libp2px-core/host"
 	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 )
 

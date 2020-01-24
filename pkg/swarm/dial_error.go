@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 
 	ma "github.com/multiformats/go-multiaddr"
 )

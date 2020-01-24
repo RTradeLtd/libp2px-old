@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px/pkg/transports/tcp"
 	"go.uber.org/zap/zaptest"
 )

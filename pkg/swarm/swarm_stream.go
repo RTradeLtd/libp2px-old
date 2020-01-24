@@ -7,9 +7,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/mux"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/mux"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 )
 
 type streamState int

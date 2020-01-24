@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
-	core "github.com/RTradeLtd/libp2p-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	core "github.com/RTradeLtd/libp2px-core/peerstore"
 )
 
 // LatencyEWMASmooting governs the decay of the EWMA (the speed
@@ -13,7 +13,7 @@ import (
 // 1 is 100% change, 0 is no change.
 var LatencyEWMASmoothing = 0.1
 
-// Deprecated: use github.com/RTradeLtd/libp2p-core/peerstore.Metrics instead.
+// Deprecated: use github.com/RTradeLtd/libp2px-core/peerstore.Metrics instead.
 type Metrics = core.Metrics
 
 type metrics struct {

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/discovery"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/discovery"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px/pkg/peerstore/addr"
 )
 

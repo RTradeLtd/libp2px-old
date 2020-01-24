@@ -7,7 +7,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/RTradeLtd/libp2p-core/event"
+	"github.com/RTradeLtd/libp2px-core/event"
 )
 
 ///////////////////////

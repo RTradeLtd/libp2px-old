@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/helpers"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/helpers"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 	"go.uber.org/zap/zaptest"
 )

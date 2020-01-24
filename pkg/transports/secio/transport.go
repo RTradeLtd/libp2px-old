@@ -6,9 +6,9 @@ import (
 	"net"
 	"time"
 
-	ci "github.com/RTradeLtd/libp2p-core/crypto"
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/sec"
+	ci "github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/sec"
 )
 
 // ID is secio's protocol ID (used when negotiating with multistream)

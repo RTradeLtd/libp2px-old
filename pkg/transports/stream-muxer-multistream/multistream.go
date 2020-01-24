@@ -7,7 +7,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/mux"
+	"github.com/RTradeLtd/libp2px-core/mux"
 
 	mss "github.com/multiformats/go-multistream"
 )

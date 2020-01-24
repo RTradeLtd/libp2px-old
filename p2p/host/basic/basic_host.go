@@ -9,13 +9,13 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/RTradeLtd/libp2p-core/connmgr"
-	"github.com/RTradeLtd/libp2p-core/event"
-	"github.com/RTradeLtd/libp2p-core/host"
-	"github.com/RTradeLtd/libp2p-core/network"
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/peerstore"
-	"github.com/RTradeLtd/libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/connmgr"
+	"github.com/RTradeLtd/libp2px-core/event"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 
 	eventbus "github.com/RTradeLtd/libp2px/pkg/eventbus"
 	inat "github.com/RTradeLtd/libp2px/pkg/utils/nat"

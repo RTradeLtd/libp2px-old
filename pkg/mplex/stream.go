@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/mux"
+	"github.com/RTradeLtd/libp2px-core/mux"
 
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
 )

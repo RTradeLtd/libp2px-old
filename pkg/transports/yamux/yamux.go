@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"net"
 
-	mux "github.com/RTradeLtd/libp2p-core/mux"
+	mux "github.com/RTradeLtd/libp2px-core/mux"
 	yamux "github.com/RTradeLtd/libp2px/pkg/yamux"
 )
 

@@ -3,8 +3,8 @@ package pstoremem
 import (
 	"sync"
 
-	peer "github.com/RTradeLtd/libp2p-core/peer"
-	pstore "github.com/RTradeLtd/libp2p-core/peerstore"
+	peer "github.com/RTradeLtd/libp2px-core/peer"
+	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
 )
 
 var internKeys = map[string]bool{

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/sec"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/sec"
 	mss "github.com/multiformats/go-multistream"
 )
 

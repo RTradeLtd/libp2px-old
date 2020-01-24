@@ -5,7 +5,7 @@ import (
 	"errors"
 	"sync"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 // TODO: change this text when we fix the bug

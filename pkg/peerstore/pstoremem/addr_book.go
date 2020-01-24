@@ -7,10 +7,10 @@ import (
 	"time"
 
 	logging "github.com/ipfs/go-log"
-	peer "github.com/RTradeLtd/libp2p-core/peer"
+	peer "github.com/RTradeLtd/libp2px-core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 
-	pstore "github.com/RTradeLtd/libp2p-core/peerstore"
+	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
 	addr "github.com/RTradeLtd/libp2px/pkg/peerstore/addr"
 )
 

@@ -9,10 +9,10 @@ import (
 	"net"
 	"time"
 
-	"github.com/RTradeLtd/libp2p-core/peer"
-	"github.com/RTradeLtd/libp2p-core/sec"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/sec"
 
-	ci "github.com/RTradeLtd/libp2p-core/crypto"
+	ci "github.com/RTradeLtd/libp2px-core/crypto"
 	pb "github.com/RTradeLtd/libp2px/pkg/transports/secio/pb"
 	proto "github.com/gogo/protobuf/proto"
 	logging "github.com/ipfs/go-log"
