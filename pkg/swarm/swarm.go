@@ -131,6 +131,7 @@ func (s *Swarm) teardown() error {
 		s.conns.m = nil
 		s.conns.Unlock()
 		for l := range listeners {
+			s.refs.Add(1)
 			go func(c transport.Listener) {
 				if err := c.Close(); err != nil {
 					s.logger.Error("failed to shutdown listener", zap.Error(err))
@@ -139,6 +140,7 @@ func (s *Swarm) teardown() error {
 		}
 		for _, cs := range conns {
 			for _, c := range cs {
+				s.refs.Add(1)
 				go func(cc *Conn) {
 					if err := cc.Close(); err != nil {
 						s.logger.Error("error shutting down connection", zap.Error(err))
@@ -146,8 +148,6 @@ func (s *Swarm) teardown() error {
 				}(c)
 			}
 		}
-		// Wait for everything to finish.
-		s.refs.Wait()
 		// Wait for everything to finish.
 		s.refs.Wait()
 		// close the peerstore and return
