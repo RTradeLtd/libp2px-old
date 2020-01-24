@@ -46,7 +46,7 @@ One possible compatability issue is with secp256k1 keys being incompatible betwe
 
 ### Needs Investigation
 
-#### TestStBackpressureStreamWrite TestProtoDowngrade,TestHostProtoPreference, TestDefaultListenAddrs Failures
+#### TestStBackpressureStreamWrite TestProtoDowngrade,TestHostProtoPreference, TestDefaultListenAddrs, TestNewDialOld Failures
 
 Notice that in [this commit](https://github.com/RTradeLtd/libp2px/commit/b45de2ae197cb95aacb150c8a53490d81cacfdf7) the TravisCI builds passed. The important thing to take note of is that this commit uses the [IPFS ci helper scripts](https://github.com/ipfs/ci-helpers/blob/master/travis-ci/run-standard-tests.sh). However if you notice in [this commit](https://github.com/RTradeLtd/libp2px/commit/1e9958227c15fbfc446f356b4660a317b9e6efc9) when we switched to a different method of executing golang test tooling, we encounter build failures. I'm not yet sure why but this is repatable behavior. This needs investigation.
 
