@@ -1,12 +1,3 @@
-.PHONY: proto-gen
-proto-gen:
-	protoc \
-		-I=p2p/protocol/identify \
-		-I=${GOPATH}/src \
-		-I=${GOPATH}/src/github.com/gogo/protobuf/protobuf \
-		p2p/protocol/identify/pb/identify.proto \
-		--gogofaster_out=p2p/protocol/identify
-
 # run standard go tooling for better readability
 .PHONY: tidy
 tidy: imports fmt
@@ -22,3 +13,9 @@ imports:
 .PHONY: fmt
 fmt:
 	find . -type f -name '*.go' -exec gofmt -s -w {} \;
+
+verifiers: staticcheck
+
+staticcheck:
+	@echo "Running $@ check"
+	@GO111MODULE=on ${GOPATH}/bin/staticcheck ./...
