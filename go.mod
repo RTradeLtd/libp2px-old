@@ -14,7 +14,6 @@ require (
 	github.com/jackpal/gateway v1.0.5
 	github.com/jackpal/go-nat-pmp v1.0.2
 	github.com/jbenet/go-temp-err-catcher v0.0.0-20150120210811-aac704a3f4f2
-	github.com/jbenet/goprocess v0.1.3
 	github.com/koron/go-ssdp v0.0.0-20191105050749-2e1c40ed0b5d
 	github.com/miekg/dns v1.1.27 // indirect
 	github.com/minio/sha256-simd v0.1.1

@@ -9,8 +9,6 @@ import (
 
 	nat "github.com/RTradeLtd/libp2px/pkg/nat"
 	logging "github.com/ipfs/go-log"
-	goprocess "github.com/jbenet/goprocess"
-	periodic "github.com/jbenet/goprocess/periodic"
 )
 
 var (
@@ -60,7 +58,7 @@ func DiscoverNAT(ctx context.Context) (*NAT, error) {
 		log.Debug("DiscoverGateway address:", addr)
 	}
 
-	return newNAT(natInstance), nil
+	return newNAT(ctx, natInstance), nil
 }
 
 // NAT is an object that manages address port mappings in
@@ -68,31 +66,43 @@ func DiscoverNAT(ctx context.Context) (*NAT, error) {
 // service that will periodically renew port mappings,
 // and keep an up-to-date list of all the external addresses.
 type NAT struct {
-	natmu sync.Mutex
-	nat   nat.NAT
-	proc  goprocess.Process
-
+	natmu     sync.Mutex
+	nat       nat.NAT
+	ctx       context.Context
+	cancel    context.CancelFunc
 	mappingmu sync.RWMutex // guards mappings
 	mappings  map[*mapping]struct{}
 }
 
-func newNAT(realNAT nat.NAT) *NAT {
+func newNAT(ctx context.Context, realNAT nat.NAT) *NAT {
+	ctx, cancel := context.WithCancel(ctx)
 	return &NAT{
 		nat:      realNAT,
-		proc:     goprocess.WithParent(goprocess.Background()),
+		ctx:      ctx,
+		cancel:   cancel,
 		mappings: make(map[*mapping]struct{}),
 	}
 }
 
 // Close shuts down all port mappings. NAT can no longer be used.
 func (nat *NAT) Close() error {
-	return nat.proc.Close()
+	nat.mappingmu.Lock()
+	nat.cancel()
+	for mp := range nat.mappings {
+		nat.rmMapping(mp)
+		mp.nat.natmu.Lock()
+		mp.nat.nat.DeletePortMapping(mp.Protocol(), mp.InternalPort())
+		mp.Close()
+		// this might need to be done before mp.CLose()
+		mp.nat.natmu.Unlock()
+	}
+	nat.mappingmu.Unlock()
+	return nil
 }
 
-// Process returns the nat's life-cycle manager, for making it listen
-// to close signals.
-func (nat *NAT) Process() goprocess.Process {
-	return nat.proc
+// Context is used to return the nat managers context
+func (nat *NAT) Context() context.Context {
+	return nat.ctx
 }
 
 // Mappings returns a slice of all NAT mappings
@@ -107,9 +117,6 @@ func (nat *NAT) Mappings() []Mapping {
 }
 
 func (nat *NAT) addMapping(m *mapping) {
-	// make mapping automatically close when nat is closed.
-	nat.proc.AddChild(m.proc)
-
 	nat.mappingmu.Lock()
 	nat.mappings[m] = struct{}{}
 	nat.mappingmu.Unlock()
@@ -146,20 +153,13 @@ func (nat *NAT) NewMapping(protocol string, port int) (Mapping, error) {
 		proto:   protocol,
 	}
 
-	m.proc = goprocess.WithTeardown(func() error {
-		nat.rmMapping(m)
-		nat.natmu.Lock()
-		defer nat.natmu.Unlock()
-		nat.nat.DeletePortMapping(m.Protocol(), m.InternalPort())
-		return nil
-	})
-
 	nat.addMapping(m)
 
+	/* TODO(bonedaddy): replace with cronjob style function
 	m.proc.AddChild(periodic.Every(MappingDuration/3, func(worker goprocess.Process) {
 		nat.establishMapping(m)
 	}))
-
+	*/
 	// do it once synchronously, so first mapping is done right away, and before exiting,
 	// allowing users -- in the optimistic case -- to use results right after.
 	nat.establishMapping(m)

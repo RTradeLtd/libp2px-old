@@ -1,10 +1,22 @@
-# libp2px
+<h1 align="center">LibP2PX ☄️</h1>
+
+<p align="center">
+  <a href="#about"><strong>About</strong></a> ·
+  <a href="#goals"><strong>Goals</strong></a> · 
+  <a href="#differences-from-libp2p"><strong>Differences From LibP2P</strong></a> ·
+  <a href="#repository-structure"><strong>Repository Structure</strong></a> ·
+  <a href="#license"><strong>License</strong></a> ·
+</p>
 
 [![GoDoc](https://godoc.org/github.com/RTradeLtd/libp2px?status.svg)](https://godoc.org/github.com/RTradeLtd/libp2px) [![Build Status](https://travis-ci.com/RTradeLtd/libp2px.svg?branch=master)](https://travis-ci.com/RTradeLtd/libp2px) [![codecov](https://codecov.io/gh/RTradeLtd/libp2px/branch/master/graph/badge.svg)](https://codecov.io/gh/RTradeLtd/libp2px) [![Maintainability](https://api.codeclimate.com/v1/badges/eb5732a9c3200416782f/maintainability)](https://codeclimate.com/github/RTradeLtd/libp2px/maintainability)
 
-`libp2px` is a fork of `github.com/libp2p/go-libp2p`, intended for use with TemporalX's enterprise IPFS node. As such it is a suitable libp2p library for projects that want a more performant and well tested libp2p codebase
+# About
 
-# Project Goals
+> **status: work in progress, not recomended for use in production**
+
+`libp2px` is a fork of `github.com/libp2p/go-libp2p`, intended for use with TemporalX's enterprise IPFS node, but suitable as a performance optimized replacement of `go-libp2p`. We will try to remain backwards compatable as much as possible with `go-libp2p`, and the rest of the network, but this is neither a design goal, nor an outright priority.
+
+# Goals
 
 * A more maintainable and approachable codebase 
 * Thoroughly tested code base
@@ -12,27 +24,36 @@
 * Privacy as long as it doesn't compromise performance
   * To this end we have disabled the built-in identify, and ping service. Eventually these will be available as modules
 
-We will try to maintain compatability with `go-libp2p` as much as possible, but we expect certain things will not work.
+# Differences From LibP2P
 
-# Compatability Issues
+* No default ping and identify service
+* Complete removal of `goprocess` which at scale becomes a significant resource hog.
+  * We replace this with idomatic, and stdlib friendly context usage
+* Removal of `go-log` replaced with pure zap logging
 
-## Confirmed
+## Compatability Issues
+
+### Confirmed
 
 None
 
-## Suspected
+### Suspected
 
-### secp256k1 issues
+#### secp256k1 issues
 
 One possible compatability issue is with secp256k1 keys being incompatible between libp2px and go-libp2p.
 
-## Needs Investigation
+### Needs Investigation
 
-### TestStBackpressureStreamWrite TestProtoDowngrade, And TestHostProtoPreference Failures
+#### TestStBackpressureStreamWrite TestProtoDowngrade, And TestHostProtoPreference Failures
 
 Notice that in [this commit](https://github.com/RTradeLtd/libp2px/commit/b45de2ae197cb95aacb150c8a53490d81cacfdf7) the TravisCI builds passed. The important thing to take note of is that this commit uses the [IPFS ci helper scripts](https://github.com/ipfs/ci-helpers/blob/master/travis-ci/run-standard-tests.sh). However if you notice in [this commit](https://github.com/RTradeLtd/libp2px/commit/1e9958227c15fbfc446f356b4660a317b9e6efc9) when we switched to a different method of executing golang test tooling, we encounter build failures. I'm not yet sure why but this is repatable behavior. This needs investigation.
 
 The names of all tests that fail when not using the ipfs ci helper script are listed in this markdown header. All but 
+
+# Support
+
+In terms of support for using this library from RTrade, we will be more than happy to address github issues for deficiencies in functionality that impact performance, but that is where the level of support will end. If you have issues with integrating this code, want explanations about the code, etc... that isn't publicly available please contact us privately.
 
 # Repository Structure
 

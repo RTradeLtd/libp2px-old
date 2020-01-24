@@ -10,8 +10,6 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 
-	"github.com/jbenet/goprocess"
-
 	ma "github.com/multiformats/go-multiaddr"
 )
 
@@ -209,11 +207,6 @@ func (pn *peernet) removeConn(c *conn) {
 		panic(fmt.Sprintf("attempting to remove a conn that doesnt exist %v", c.remote))
 	}
 	delete(cs, c)
-}
-
-// Process returns the network's Process
-func (pn *peernet) Process() goprocess.Process {
-	return goprocess.Background()
 }
 
 // LocalPeer the network's LocalPeer
