@@ -517,6 +517,9 @@ func (h *BasicHost) Addrs() []ma.Multiaddr {
 
 // mergeAddrs merges input address lists, leave only unique addresses
 func dedupAddrs(addrs []ma.Multiaddr) (uniqueAddrs []ma.Multiaddr) {
+	if len(addrs) == 0 {
+		return nil
+	}
 	exists := make(map[string]bool)
 	for _, addr := range addrs {
 		k := string(addr.Bytes())
