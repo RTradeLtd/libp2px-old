@@ -21,6 +21,7 @@ var ErrLookupFailure = errors.New("failed to find any peer in table")
 // peer.ID or a util.Key. This unifies the keyspace
 type ID []byte
 
+//lint:ignore U1000 - potentially useful
 func (id ID) equal(other ID) bool {
 	return bytes.Equal(id, other)
 }

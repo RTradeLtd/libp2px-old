@@ -104,7 +104,7 @@ func (v *validation) AddValidator(req *addValReq) {
 
 	_, ok := v.topicVals[topic]
 	if ok {
-		req.resp <- fmt.Errorf("Duplicate validator for topic %s", topic)
+		req.resp <- fmt.Errorf("duplicate validator for topic %s", topic)
 		return
 	}
 
@@ -137,7 +137,7 @@ func (v *validation) RemoveValidator(req *rmValReq) {
 		delete(v.topicVals, topic)
 		req.resp <- nil
 	} else {
-		req.resp <- fmt.Errorf("No validator for topic %s", topic)
+		req.resp <- fmt.Errorf("no validator for topic %s", topic)
 	}
 }
 
@@ -242,11 +242,7 @@ func (v *validation) validate(vals []*topicVal, src peer.ID, msg *Message) {
 
 func (v *validation) validateSignature(msg *Message) bool {
 	err := verifyMessageSignature(msg.Message)
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
 
 func (v *validation) doValidateTopic(vals []*topicVal, src peer.ID, msg *Message) {
@@ -324,11 +320,7 @@ func (val *topicVal) validateMsg(ctx context.Context, src peer.ID, msg *Message)
 		defer cancel()
 	}
 
-	valid := val.validate(ctx, src, msg)
-	if !valid {
-	}
-
-	return valid
+	return val.validate(ctx, src, msg)
 }
 
 /// Options

@@ -150,6 +150,7 @@ func TestTopicReuse(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	//lint:ignore S1004 - should be fine
 	if bytes.Compare(msg.GetData(), firstMsg) != 0 {
 		t.Fatal("received incorrect message")
 	}
@@ -177,6 +178,7 @@ func TestTopicReuse(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+		//lint:ignore S1004 - should be fine
 		if bytes.Compare(msg.GetData(), illegalSend) != 0 {
 			t.Fatal("received incorrect message from illegal topic")
 		}
@@ -194,12 +196,13 @@ func TestTopicReuse(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	timeoutCtx, timeoutCancel = context.WithTimeout(ctx, time.Second*2)
+	_, timeoutCancel = context.WithTimeout(ctx, time.Second*2)
 	defer timeoutCancel()
 	msg, err = sub.Next(ctx)
 	if err != nil {
 		t.Fatal(err)
 	}
+	//lint:ignore S1004 - should be fine
 	if bytes.Compare(msg.GetData(), secondMsg) != 0 {
 		t.Fatal("received incorrect message")
 	}

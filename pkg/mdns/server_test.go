@@ -1,9 +1,9 @@
 package mdns
 
 import (
+	"sync/atomic"
 	"testing"
 	"time"
-	"sync/atomic"
 )
 
 func TestServer_StartStop(t *testing.T) {
@@ -28,18 +28,18 @@ func TestServer_Lookup(t *testing.T) {
 		select {
 		case e := <-entries:
 			if e.Name != "hostname._foobar._tcp.local." {
-				t.Fatalf("bad: %v", e)
+				t.Errorf("bad: %v", e)
 			}
 			if e.Port != 80 {
-				t.Fatalf("bad: %v", e)
+				t.Errorf("bad: %v", e)
 			}
 			if e.Info != "Local web server" {
-				t.Fatalf("bad: %v", e)
+				t.Errorf("bad: %v", e)
 			}
 			atomic.AddUint32(&found, 1)
 
 		case <-time.After(80 * time.Millisecond):
-			t.Fatalf("timeout")
+			t.Errorf("timeout")
 		}
 	}()
 

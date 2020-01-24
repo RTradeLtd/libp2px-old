@@ -97,9 +97,7 @@ func (t *JSONTracer) doWrite() {
 		t.mx.Unlock()
 
 		for i, evt := range buf {
-			err := enc.Encode(evt)
-			if err != nil {
-			}
+			_ = enc.Encode(evt)
 			buf[i] = nil
 		}
 
@@ -148,9 +146,7 @@ func (t *PBTracer) doWrite() {
 		t.mx.Unlock()
 
 		for i, evt := range buf {
-			err := w.WriteMsg(evt)
-			if err != nil {
-			}
+			_ = w.WriteMsg(evt)
 			buf[i] = nil
 		}
 

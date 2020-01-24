@@ -186,6 +186,8 @@ func (d *discover) Advertise(topic string) {
 	go func() {
 		next, err := d.discovery.Advertise(advertisingCtx, topic)
 		if err != nil {
+			// TODO(bonedaddy): log
+			return
 		}
 
 		t := time.NewTimer(next)
@@ -194,6 +196,8 @@ func (d *discover) Advertise(topic string) {
 			case <-t.C:
 				next, err = d.discovery.Advertise(advertisingCtx, topic)
 				if err != nil {
+					// TODO(bonedaddy): log
+					return
 				}
 				t.Reset(next)
 			case <-advertisingCtx.Done():
