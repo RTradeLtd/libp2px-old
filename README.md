@@ -70,10 +70,24 @@ In terms of support for using this library from RTrade, we will be more than hap
 
 `pkg` contains various packages that may be useful to other users of `libp2px` including:
 
-* `transports` which contains a variety of transports 
-  * a `transport` is essentially something responisble for defining a method of connecting two different peers
-* `muxers` which contains a variety of connection muxers
-  * a `muxer` is responsible for multiplexing different conenctions
+| path | description |
+|------|-------------|
+| `pkg/autonat` | an autonat service implementation |
+| `pkg/blankhost` | a bare libp2px host implementation | 
+| `pkg/buffer-pool` | a memory buffer pool |
+| `pkg/discovery` | a service to discovert things |
+| `pkg/kbucket` | TODO | 
+| `pkg/mdns` | TODO |
+| `pkg/metrics` | TODO |
+| `pkg/msgio` | TODO |
+| `pkg/nat` | TODO | 
+| `pkg/peerstore` | a storage system for libp2px peers |
+| `pkg/pnet` | TODO |
+| `pkg/pubsub` | a libp2px pubsub implementation supporting gossipsub, floodsub, and randomsub |
+| `pkg/reuseport` | TODO |
+| `pkg/swarm` | a libp2px swarm manager | 
+| `pkg/transports` | contains a variety of libp2px transports, responsible for defining methods of connecting two peers |
+| `pkg/muxers` | contains a variety of connection multiplexers |
   
 # License
 
