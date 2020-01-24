@@ -8,7 +8,34 @@
   <a href="#license"><strong>License</strong></a> ·
 </p>
 
-[![GoDoc](https://godoc.org/github.com/RTradeLtd/libp2px?status.svg)](https://godoc.org/github.com/RTradeLtd/libp2px) [![Build Status](https://travis-ci.com/RTradeLtd/libp2px.svg?branch=master)](https://travis-ci.com/RTradeLtd/libp2px) [![codecov](https://codecov.io/gh/RTradeLtd/libp2px/branch/master/graph/badge.svg)](https://codecov.io/gh/RTradeLtd/libp2px) [![Maintainability](https://api.codeclimate.com/v1/badges/eb5732a9c3200416782f/maintainability)](https://codeclimate.com/github/RTradeLtd/libp2px/maintainability)
+<p align="center">
+  <a href="https://godoc.org/github.com/RTradeLtd/libp2px">
+    <img src="https://godoc.org/github.com/RTradeLtd/libp2px?status.svg"
+       alt="GoDocs available" />
+  </a>
+  <a href="https://travis-ci.com/RTradeLtd/libp2px">
+    <img src="https://travis-ci.com/RTradeLtd/libp2px.svg?branch=master"
+      alt="Travis Build Status" />
+  </a>
+  <a href="https://github.com/RTradeLtd/libp2px/releases">
+    <img src="https://img.shields.io/github/release-pre/RTradeLtd/libp2px.svg"
+      alt="Release" />
+  </a>
+  </br>
+  <a href="https://codecov.io/gh/RTradeLtd/libp2px">
+    <img src="https://codecov.io/gh/RTradeLtd/libp2px/branch/master/graph/badge.svg" 
+        alt="Code Coverage"/>
+  </a>
+  <a href="https://codeclimate.com/github/RTradeLtd/libp2px/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/eb5732a9c3200416782f/maintainability" 
+        alt="Maintanability"/>
+  </a>
+  <a href="https://goreportcard.com/report/github.com/RTradeLtd/libp2px">
+    <img src="https://goreportcard.com/badge/github.com/RTradeLtd/libp2px"
+      alt="Clean code" />
+  </a>
+</p>
+</p>
 
 # About
 
