@@ -14,6 +14,7 @@ require (
 	github.com/jackpal/go-nat-pmp v1.0.2
 	github.com/jbenet/go-temp-err-catcher v0.0.0-20150120210811-aac704a3f4f2
 	github.com/koron/go-ssdp v0.0.0-20191105050749-2e1c40ed0b5d
+	github.com/lucas-clemente/quic-go v0.14.1
 	github.com/miekg/dns v1.1.27
 	github.com/minio/sha256-simd v0.1.1
 	github.com/multiformats/go-multiaddr v0.2.0
@@ -24,6 +25,7 @@ require (
 	github.com/multiformats/go-multistream v0.1.0
 	github.com/multiformats/go-varint v0.0.2 // indirect
 	github.com/pkg/errors v0.9.1
+	github.com/vishvananda/netlink v1.1.0
 	github.com/whyrusleeping/mafmt v1.2.8
 	github.com/whyrusleeping/multiaddr-filter v0.0.0-20160516205228-e903e4adabd7
 	github.com/whyrusleeping/timecache v0.0.0-20160911033111-cfcb2f1abfee
