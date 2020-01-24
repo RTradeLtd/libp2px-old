@@ -51,8 +51,8 @@ type memoryAddrBook struct {
 var _ pstore.AddrBook = (*memoryAddrBook)(nil)
 
 // NewAddrBook returns a new in-memory addrbook
-func NewAddrBook() pstore.AddrBook {
-	ctx, cancel := context.WithCancel(context.Background())
+func NewAddrBook(ctx context.Context) pstore.AddrBook {
+	cctx, cancel := context.WithCancel(context.Background())
 
 	ab := &memoryAddrBook{
 		segments: func() (ret addrSegments) {
@@ -62,7 +62,7 @@ func NewAddrBook() pstore.AddrBook {
 			return ret
 		}(),
 		subManager: NewAddrSubManager(),
-		ctx:        ctx,
+		ctx:        cctx,
 		cancel:     cancel,
 	}
 
