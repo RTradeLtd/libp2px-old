@@ -1,4 +1,4 @@
-module github.com/RTradeLtd/libp2p
+module github.com/RTradeLtd/libp2px
 
 require (
 	github.com/RTradeLtd/libp2p-core v0.0.1

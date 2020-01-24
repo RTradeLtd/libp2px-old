@@ -3,7 +3,6 @@ github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/RTradeLtd/libp2p-core v0.0.1 h1:GJsQszM8YtC6srP1BEyDl/z0NsLVSb5XF8QvrWlWDwk=
 github.com/RTradeLtd/libp2p-core v0.0.1/go.mod h1:Trew+M9WEXV6+iRhnzZCatoMQofacHSbkYyOLtUNYIk=
-github.com/RTradeLtd/libp2px v0.0.0-20200124014405-412dc5ce08ce h1:x4qVnw99+FU9pjrSxfuGYlu1W2tph+6+oQ6/JmdGoPI=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=
 github.com/btcsuite/btcd v0.20.1-beta h1:Ik4hyJqN8Jfyv3S4AGBOmyouMsYE3EdYODkMbQjwPGw=
 github.com/btcsuite/btcd v0.20.1-beta/go.mod h1:wVuoA8VJLEcwgqHBwHmzLRazpKxTv13Px/pDuV7OomQ=
