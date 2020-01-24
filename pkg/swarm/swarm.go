@@ -86,11 +86,12 @@ type Swarm struct {
 	// filters for addresses that shouldnt be dialed (or accepted)
 	Filters *filter.Filters
 
-	ctx    context.Context
-	cancel context.CancelFunc
-	bwc    metrics.Reporter
-
-	logger *zap.Logger
+	ctx      context.Context
+	cancel   context.CancelFunc
+	bwc      metrics.Reporter
+	once     sync.Once
+	closeErr error
+	logger   *zap.Logger
 }
 
 // NewSwarm constructs a Swarm, and becomes responsible for shutting down the corresponding peerstore
@@ -119,44 +120,43 @@ func (s *Swarm) teardown() error {
 	// This allows other parts of the swarm to detect that we're shutting
 	// down.
 	<-s.ctx.Done()
-
-	// Prevents new connections and/or listeners from being added to the swarm.
-
-	s.listeners.Lock()
-	listeners := s.listeners.m
-	s.listeners.m = nil
-	s.listeners.Unlock()
-
-	s.conns.Lock()
-	conns := s.conns.m
-	s.conns.m = nil
-	s.conns.Unlock()
-
-	// Lots of goroutines but we might as well do this in parallel. We want to shut down as fast as
-	// possible.
-
-	for l := range listeners {
-		go func(l transport.Listener) {
-			if err := l.Close(); err != nil {
-				s.logger.Error("failed to shutdown listener", zap.Error(err))
-			}
-		}(l)
-	}
-
-	for _, cs := range conns {
-		for _, c := range cs {
-			go func(c *Conn) {
+	s.once.Do(func() {
+		// Prevents new connections and/or listeners from being added to the swarm.
+		s.listeners.Lock()
+		listeners := s.listeners.m
+		s.listeners.m = nil
+		s.listeners.Unlock()
+		s.conns.Lock()
+		conns := s.conns.m
+		s.conns.m = nil
+		s.conns.Unlock()
+		for l := range listeners {
+			go func(c transport.Listener) {
 				if err := c.Close(); err != nil {
-					s.logger.Error("error shutting down connection", zap.Error(err))
+					s.logger.Error("failed to shutdown listener", zap.Error(err))
 				}
-			}(c)
+			}(l)
 		}
-	}
-
-	// Wait for everything to finish.
-	s.refs.Wait()
-	// close the peerstore and return
-	return s.peers.Close()
+		for _, cs := range conns {
+			for _, c := range cs {
+				go func(cc *Conn) {
+					if err := cc.Close(); err != nil {
+						s.logger.Error("error shutting down connection", zap.Error(err))
+					}
+				}(c)
+			}
+		}
+		// Wait for everything to finish.
+		s.refs.Wait()
+		// Wait for everything to finish.
+		s.refs.Wait()
+		// close the peerstore and return
+		if err := s.peers.Close(); err != nil {
+			s.logger.Error("error shutting down peerstore")
+			s.closeErr = err
+		}
+	})
+	return s.closeErr
 }
 
 // AddAddrFilter adds a multiaddr filter to the set of filters the swarm will use to determine which
