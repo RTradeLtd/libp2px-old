@@ -93,7 +93,7 @@ type Swarm struct {
 	logger *zap.Logger
 }
 
-// NewSwarm constructs a Swarm
+// NewSwarm constructs a Swarm, and becomes responsible for shutting down the corresponding peerstore
 func NewSwarm(ctx context.Context, logger *zap.Logger, local peer.ID, peers peerstore.Peerstore, bwc metrics.Reporter) *Swarm {
 	s := &Swarm{
 		local:   local,
@@ -155,8 +155,8 @@ func (s *Swarm) teardown() error {
 
 	// Wait for everything to finish.
 	s.refs.Wait()
-
-	return nil
+	// close the peerstore and return
+	return s.peers.Close()
 }
 
 // AddAddrFilter adds a multiaddr filter to the set of filters the swarm will use to determine which
