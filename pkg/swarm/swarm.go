@@ -89,7 +89,7 @@ type Swarm struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 	bwc    metrics.Reporter
-
+	close  sync.Once
 	logger *zap.Logger
 }
 
@@ -111,6 +111,10 @@ func NewSwarm(ctx context.Context, logger *zap.Logger, local peer.ID, peers peer
 	s.dsync = NewDialSync(s.doDial)
 	s.limiter = newDialLimiter(s.dialAddr)
 	s.ctx, s.cancel = context.WithCancel(ctx)
+	go func() {
+		<-s.ctx.Done()
+		s.teardown()
+	}()
 	return s
 }
 
@@ -119,43 +123,32 @@ func (s *Swarm) teardown() error {
 	// This allows other parts of the swarm to detect that we're shutting
 	// down.
 	<-s.ctx.Done()
-
-	// Prevents new connections and/or listeners from being added to the swarm.
-
-	s.listeners.Lock()
-	listeners := s.listeners.m
-	s.listeners.m = nil
-	s.listeners.Unlock()
-
-	s.conns.Lock()
-	conns := s.conns.m
-	s.conns.m = nil
-	s.conns.Unlock()
-
-	// Lots of goroutines but we might as well do this in parallel. We want to shut down as fast as
-	// possible.
-
-	for l := range listeners {
-		go func(l transport.Listener) {
+	s.close.Do(func() {
+		// Prevents new connections and/or listeners from being added to the swarm.
+		s.listeners.Lock()
+		listeners := s.listeners.m
+		s.listeners.m = nil
+		s.listeners.Unlock()
+		s.conns.Lock()
+		conns := s.conns.m
+		s.conns.m = nil
+		s.conns.Unlock()
+		// NOTE(bonedaddy): this was previously done in goroutines but we have removed that
+		for l := range listeners {
 			if err := l.Close(); err != nil {
 				s.logger.Error("failed to shutdown listener", zap.Error(err))
 			}
-		}(l)
-	}
-
-	for _, cs := range conns {
-		for _, c := range cs {
-			go func(c *Conn) {
+		}
+		for _, cs := range conns {
+			for _, c := range cs {
 				if err := c.Close(); err != nil {
 					s.logger.Error("error shutting down connection", zap.Error(err))
 				}
-			}(c)
+			}
 		}
-	}
-
-	// Wait for everything to finish.
-	s.refs.Wait()
-
+		// Wait for everything to finish.
+		s.refs.Wait()
+	})
 	return nil
 }
 
