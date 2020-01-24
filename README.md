@@ -41,7 +41,7 @@ None
 
 #### secp256k1 issues
 
-One possible compatability issue is with secp256k1 keys being incompatible between libp2px and go-libp2p.
+One possible compatability issue is with secp256k1 keys being incompatible between libp2px and go-libp2p. The reason being is that during the fork of `libp2p/go-libp2p-core` tests broke when using the pre-generated secp256k1 test data, and we needed to regenerate it to fix.
 
 ### Needs Investigation
 
