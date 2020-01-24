@@ -1,4 +1,4 @@
-<h1 align="center">LibP2PX ☄️</h1>
+<h1 align="center">LibP2P<u>X</u> 🌌</h1>
 
 <p align="center">
   <a href="#about"><strong>About</strong></a> ·
