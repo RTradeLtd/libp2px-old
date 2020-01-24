@@ -110,7 +110,7 @@ func (cfg *Config) NewNode(ctx context.Context, logger *zap.Logger) (host.Host, 
 	}
 
 	// TODO: Make the swarm implementation configurable.
-	swrm := swarm.NewSwarm(ctx, pid, cfg.Peerstore, cfg.Reporter)
+	swrm := swarm.NewSwarm(ctx, logger, pid, cfg.Peerstore, cfg.Reporter)
 	if cfg.Filters != nil {
 		swrm.Filters = cfg.Filters
 	}

@@ -12,7 +12,6 @@ import (
 	"time"
 
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
-	"go.uber.org/zap"
 )
 
 // MaxMessageSize defines the maximum message size
@@ -86,11 +85,10 @@ type Multiplex struct {
 
 	channels map[streamID]*Stream
 	chLock   sync.Mutex
-	logger   *zap.Logger
 }
 
 // NewMultiplex creates a new multiplexer session.
-func NewMultiplex(logger *zap.Logger, con net.Conn, initiator bool) *Multiplex {
+func NewMultiplex(con net.Conn, initiator bool) *Multiplex {
 	mp := &Multiplex{
 		con:        con,
 		initiator:  initiator,
@@ -199,7 +197,6 @@ func (mp *Multiplex) handleOutgoing() {
 			err := mp.doWriteMsg(data)
 			pool.Put(data)
 			if err != nil {
-				mp.logger.Warn("error writing data", zap.Error(err))
 				return
 			}
 		}
@@ -334,7 +331,6 @@ func (mp *Multiplex) handleIncoming() {
 		switch tag {
 		case newStreamTag:
 			if ok {
-				mp.logger.Debug("received message for existing stream", zap.Uint64("stream.id", ch.id))
 				mp.shutdownErr = ErrInvalidState
 				return
 			}
@@ -421,7 +417,6 @@ func (mp *Multiplex) handleIncoming() {
 			if remoteClosed {
 				// closed stream, return b
 				pool.Put(b)
-				mp.logger.Warn("received data after stream was closed by peer")
 				// go mp.sendResetMsg(msch.id.header(resetTag), false)
 				continue
 			}
@@ -433,7 +428,6 @@ func (mp *Multiplex) handleIncoming() {
 				pool.Put(b)
 			case <-recvTimeout.C:
 				pool.Put(b)
-				mp.logger.Warn("timeout receiving message in stream queue")
 				// Do not do this asynchronously. Otherwise, we
 				// could drop a message, then receive a message,
 				// then reset.
@@ -447,7 +441,6 @@ func (mp *Multiplex) handleIncoming() {
 				<-recvTimeout.C
 			}
 		default:
-			mp.logger.Debug("message with unknown header on stream", zap.Uint64("stream.id", ch.id))
 			if ok {
 				msch.Reset()
 			}
@@ -471,10 +464,8 @@ func (mp *Multiplex) sendResetMsg(header uint64, hard bool) {
 	err := mp.sendMsg(ctx.Done(), header, nil)
 	if err != nil && !mp.isShutdown() {
 		if hard {
-			mp.logger.Warn("error sending reset message killing connection", zap.Error(err))
 			mp.Close()
 		} else {
-			mp.logger.Debug("error sending reset message", zap.Error(err))
 		}
 	}
 }

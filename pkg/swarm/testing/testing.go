@@ -9,6 +9,7 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 	tnet "github.com/RTradeLtd/libp2px/pkg/testing/net"
 	"github.com/RTradeLtd/libp2px/pkg/transports/tcp"
+	"go.uber.org/zap/zaptest"
 
 	pstoremem "github.com/RTradeLtd/libp2px/pkg/peerstore/pstoremem"
 	csms "github.com/RTradeLtd/libp2px/pkg/transports/conn-security-multistream"
@@ -71,7 +72,7 @@ func GenSwarm(t *testing.T, ctx context.Context, opts ...Option) (*swarm.Swarm, 
 	ps := pstoremem.NewPeerstore()
 	ps.AddPubKey(p.ID, p.PubKey)
 	ps.AddPrivKey(p.ID, p.PrivKey)
-	s := swarm.NewSwarm(ctx, p.ID, ps, metrics.NewBandwidthCounter())
+	s := swarm.NewSwarm(ctx, zaptest.NewLogger(t), p.ID, ps, metrics.NewBandwidthCounter())
 	tcpTransport := tcp.NewTCPTransport(GenUpgrader(s))
 	tcpTransport.DisableReuseport = cfg.disableReuseport
 

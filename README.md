@@ -30,7 +30,8 @@
 * Complete removal of `goprocess` which at scale becomes a significant resource hog.
   * We replace this with idomatic, and stdlib friendly context usage
 * Removal of `go-log` replaced with pure zap logging
-
+* Transports have no logging as they were relying on gobally initialized loggers
+  * With the current method of using transports, it's impossible to use logging there with non-global loggers, at some point in time this may be refactored and changed.
 ## Compatability Issues
 
 ### Confirmed
