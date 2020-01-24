@@ -69,4 +69,4 @@ In terms of support for using this library from RTrade, we will be more than hap
 
 # License
 
-All original code is licensed under MIT+Apache, and we've included all the previous licenses. New code and modifications are licensed under3 AGPLv3
+All original code is licensed under MIT+Apache, and we've included all the previous licenses. New code (aka, newly added transports, etc...) will be added with AGPLv3 licenses.
