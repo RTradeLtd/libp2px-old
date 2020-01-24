@@ -1,0 +1,203 @@
+# github.com/BurntSushi/toml v0.3.1
+github.com/BurntSushi/toml
+# github.com/RTradeLtd/libp2px-core v0.0.2
+github.com/RTradeLtd/libp2px-core/connmgr
+github.com/RTradeLtd/libp2px-core/crypto
+github.com/RTradeLtd/libp2px-core/crypto/pb
+github.com/RTradeLtd/libp2px-core/discovery
+github.com/RTradeLtd/libp2px-core/event
+github.com/RTradeLtd/libp2px-core/helpers
+github.com/RTradeLtd/libp2px-core/host
+github.com/RTradeLtd/libp2px-core/metrics
+github.com/RTradeLtd/libp2px-core/metrics/flow
+github.com/RTradeLtd/libp2px-core/mux
+github.com/RTradeLtd/libp2px-core/network
+github.com/RTradeLtd/libp2px-core/peer
+github.com/RTradeLtd/libp2px-core/peerstore
+github.com/RTradeLtd/libp2px-core/pnet
+github.com/RTradeLtd/libp2px-core/protocol
+github.com/RTradeLtd/libp2px-core/routing
+github.com/RTradeLtd/libp2px-core/sec
+github.com/RTradeLtd/libp2px-core/sec/insecure
+github.com/RTradeLtd/libp2px-core/sec/insecure/pb
+github.com/RTradeLtd/libp2px-core/test
+github.com/RTradeLtd/libp2px-core/transport
+# github.com/RTradeLtd/libp2px-openssl v0.0.5
+github.com/RTradeLtd/libp2px-openssl
+github.com/RTradeLtd/libp2px-openssl/utils
+# github.com/btcsuite/btcd v0.20.1-beta
+github.com/btcsuite/btcd/btcec
+# github.com/coreos/go-semver v0.3.0
+github.com/coreos/go-semver/semver
+# github.com/gogo/protobuf v1.3.1
+github.com/gogo/protobuf/io
+github.com/gogo/protobuf/proto
+# github.com/gorilla/websocket v1.4.1
+github.com/gorilla/websocket
+# github.com/hashicorp/golang-lru v0.5.3
+github.com/hashicorp/golang-lru
+github.com/hashicorp/golang-lru/simplelru
+# github.com/huin/goupnp v1.0.0
+github.com/huin/goupnp
+github.com/huin/goupnp/dcps/internetgateway1
+github.com/huin/goupnp/dcps/internetgateway2
+github.com/huin/goupnp/httpu
+github.com/huin/goupnp/scpd
+github.com/huin/goupnp/soap
+github.com/huin/goupnp/ssdp
+# github.com/ipfs/go-cid v0.0.4
+github.com/ipfs/go-cid
+# github.com/ipfs/go-detect-race v0.0.1
+github.com/ipfs/go-detect-race
+# github.com/ipfs/go-ipfs-util v0.0.1
+github.com/ipfs/go-ipfs-util
+# github.com/jackpal/gateway v1.0.5
+github.com/jackpal/gateway
+# github.com/jackpal/go-nat-pmp v1.0.2
+github.com/jackpal/go-nat-pmp
+# github.com/jbenet/go-temp-err-catcher v0.0.0-20150120210811-aac704a3f4f2
+github.com/jbenet/go-temp-err-catcher
+# github.com/koron/go-ssdp v0.0.0-20191105050749-2e1c40ed0b5d
+github.com/koron/go-ssdp
+# github.com/miekg/dns v1.1.27
+github.com/miekg/dns
+# github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
+github.com/minio/blake2b-simd
+# github.com/minio/sha256-simd v0.1.1
+github.com/minio/sha256-simd
+# github.com/mr-tron/base58 v1.1.3
+github.com/mr-tron/base58/base58
+# github.com/multiformats/go-base32 v0.0.3
+github.com/multiformats/go-base32
+# github.com/multiformats/go-multiaddr v0.2.0
+github.com/multiformats/go-multiaddr
+# github.com/multiformats/go-multiaddr-dns v0.1.1
+github.com/multiformats/go-multiaddr-dns
+# github.com/multiformats/go-multiaddr-fmt v0.1.0
+github.com/multiformats/go-multiaddr-fmt
+# github.com/multiformats/go-multiaddr-net v0.1.1
+github.com/multiformats/go-multiaddr-net
+# github.com/multiformats/go-multibase v0.0.1
+github.com/multiformats/go-multibase
+# github.com/multiformats/go-multihash v0.0.10
+github.com/multiformats/go-multihash
+# github.com/multiformats/go-multistream v0.1.0
+github.com/multiformats/go-multistream
+# github.com/multiformats/go-varint v0.0.2
+github.com/multiformats/go-varint
+# github.com/pkg/errors v0.9.1
+github.com/pkg/errors
+# github.com/spacemonkeygo/spacelog v0.0.0-20180420211403-2296661a0572
+github.com/spacemonkeygo/spacelog
+# github.com/spaolacci/murmur3 v1.1.0
+github.com/spaolacci/murmur3
+# github.com/whyrusleeping/mafmt v1.2.8
+github.com/whyrusleeping/mafmt
+# github.com/whyrusleeping/mdns v0.0.0-20190826153040-b9b60ed33aa9
+github.com/whyrusleeping/mdns
+# github.com/whyrusleeping/multiaddr-filter v0.0.0-20160516205228-e903e4adabd7
+github.com/whyrusleeping/multiaddr-filter
+# go.opencensus.io v0.22.2
+go.opencensus.io/internal/tagencoding
+go.opencensus.io/metric/metricdata
+go.opencensus.io/metric/metricproducer
+go.opencensus.io/resource
+go.opencensus.io/stats
+go.opencensus.io/stats/internal
+go.opencensus.io/stats/view
+go.opencensus.io/tag
+# go.uber.org/atomic v1.5.0
+go.uber.org/atomic
+# go.uber.org/multierr v1.3.0
+go.uber.org/multierr
+# go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee
+go.uber.org/tools/update-license
+# go.uber.org/zap v1.13.0
+go.uber.org/zap
+go.uber.org/zap/buffer
+go.uber.org/zap/internal/bufferpool
+go.uber.org/zap/internal/color
+go.uber.org/zap/internal/exit
+go.uber.org/zap/internal/ztest
+go.uber.org/zap/zapcore
+go.uber.org/zap/zaptest
+# golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413
+golang.org/x/crypto/blake2s
+golang.org/x/crypto/ed25519
+golang.org/x/crypto/ed25519/internal/edwards25519
+golang.org/x/crypto/sha3
+# golang.org/x/lint v0.0.0-20190930215403-16217165b5de
+golang.org/x/lint
+golang.org/x/lint/golint
+# golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553
+golang.org/x/net/bpf
+golang.org/x/net/html
+golang.org/x/net/html/atom
+golang.org/x/net/html/charset
+golang.org/x/net/internal/iana
+golang.org/x/net/internal/socket
+golang.org/x/net/ipv4
+golang.org/x/net/ipv6
+# golang.org/x/sys v0.0.0-20191210023423-ac6580df4449
+golang.org/x/sys/cpu
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# golang.org/x/text v0.3.2
+golang.org/x/text/encoding
+golang.org/x/text/encoding/charmap
+golang.org/x/text/encoding/htmlindex
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/japanese
+golang.org/x/text/encoding/korean
+golang.org/x/text/encoding/simplifiedchinese
+golang.org/x/text/encoding/traditionalchinese
+golang.org/x/text/encoding/unicode
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/language
+golang.org/x/text/runes
+golang.org/x/text/transform
+# golang.org/x/tools v0.0.0-20191216052735-49a3e744a425
+golang.org/x/tools/go/analysis
+golang.org/x/tools/go/analysis/passes/inspect
+golang.org/x/tools/go/ast/astutil
+golang.org/x/tools/go/ast/inspector
+golang.org/x/tools/go/buildutil
+golang.org/x/tools/go/gcexportdata
+golang.org/x/tools/go/internal/gcimporter
+golang.org/x/tools/go/internal/packagesdriver
+golang.org/x/tools/go/packages
+golang.org/x/tools/go/types/objectpath
+golang.org/x/tools/go/types/typeutil
+golang.org/x/tools/internal/fastwalk
+golang.org/x/tools/internal/gopathwalk
+golang.org/x/tools/internal/semver
+# honnef.co/go/tools v0.0.1-2019.2.3
+honnef.co/go/tools/arg
+honnef.co/go/tools/cmd/staticcheck
+honnef.co/go/tools/config
+honnef.co/go/tools/deprecated
+honnef.co/go/tools/facts
+honnef.co/go/tools/functions
+honnef.co/go/tools/go/types/typeutil
+honnef.co/go/tools/internal/cache
+honnef.co/go/tools/internal/passes/buildssa
+honnef.co/go/tools/internal/renameio
+honnef.co/go/tools/internal/sharedcheck
+honnef.co/go/tools/lint
+honnef.co/go/tools/lint/lintdsl
+honnef.co/go/tools/lint/lintutil
+honnef.co/go/tools/lint/lintutil/format
+honnef.co/go/tools/loader
+honnef.co/go/tools/printf
+honnef.co/go/tools/simple
+honnef.co/go/tools/ssa
+honnef.co/go/tools/ssautil
+honnef.co/go/tools/staticcheck
+honnef.co/go/tools/staticcheck/vrp
+honnef.co/go/tools/stylecheck
+honnef.co/go/tools/unused
+honnef.co/go/tools/version
