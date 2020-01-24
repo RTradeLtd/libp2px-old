@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// BackoffFactory returns a backoff strategy
 type BackoffFactory func() BackoffStrategy
 
 // BackoffStrategy describes how backoff will be implemented. BackoffStratgies are stateful.

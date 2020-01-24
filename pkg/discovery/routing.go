@@ -20,10 +20,12 @@ type RoutingDiscovery struct {
 	routing.ContentRouting
 }
 
+// NewRoutingDiscovery returns a content routing discovery service
 func NewRoutingDiscovery(router routing.ContentRouting) *RoutingDiscovery {
 	return &RoutingDiscovery{router}
 }
 
+// Advertise is used to advertise we are interested in the namespace
 func (d *RoutingDiscovery) Advertise(ctx context.Context, ns string, opts ...Option) (time.Duration, error) {
 	var options Options
 	err := options.Apply(opts...)
@@ -57,6 +59,7 @@ func (d *RoutingDiscovery) Advertise(ctx context.Context, ns string, opts ...Opt
 	return ttl, nil
 }
 
+// FindPeers is used to find peers from the given namespace
 func (d *RoutingDiscovery) FindPeers(ctx context.Context, ns string, opts ...Option) (<-chan peer.AddrInfo, error) {
 	var options Options
 	err := options.Apply(opts...)
@@ -86,16 +89,20 @@ func nsToCid(ns string) (cid.Cid, error) {
 	return cid.NewCidV1(cid.Raw, h), nil
 }
 
-func NewDiscoveryRouting(disc discovery.Discovery, opts ...discovery.Option) *DiscoveryRouting {
-	return &DiscoveryRouting{disc, opts}
+// NewDiscoveryRouting returns a configurable DiscoveryRouting router
+func NewDiscoveryRouting(disc discovery.Discovery, opts ...discovery.Option) *Routing {
+	return &Routing{disc, opts}
 }
 
-type DiscoveryRouting struct {
+// Routing does??
+// TODO(bonedaddy): identify why this is here and if we can remove it
+type Routing struct {
 	discovery.Discovery
 	opts []discovery.Option
 }
 
-func (r *DiscoveryRouting) Provide(ctx context.Context, c cid.Cid, bcast bool) error {
+// Provide is used to provide to the cid namespace that are providing the content for it
+func (r *Routing) Provide(ctx context.Context, c cid.Cid, bcast bool) error {
 	if !bcast {
 		return nil
 	}
@@ -104,11 +111,13 @@ func (r *DiscoveryRouting) Provide(ctx context.Context, c cid.Cid, bcast bool) e
 	return err
 }
 
-func (r *DiscoveryRouting) FindProvidersAsync(ctx context.Context, c cid.Cid, limit int) <-chan peer.AddrInfo {
+// FindProvidersAsync is used to asychronously find providers for the cid
+func (r *Routing) FindProvidersAsync(ctx context.Context, c cid.Cid, limit int) <-chan peer.AddrInfo {
 	ch, _ := r.FindPeers(ctx, cidToNs(c), append([]discovery.Option{discovery.Limit(limit)}, r.opts...)...)
 	return ch
 }
 
+// TODO(bonedaddy): put this into `pkg/utils`
 func cidToNs(c cid.Cid) string {
 	return "/provider/" + c.String()
 }

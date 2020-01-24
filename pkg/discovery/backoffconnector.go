@@ -83,13 +83,11 @@ func (c *BackoffConnector) Connect(ctx context.Context, peerCh <-chan peer.AddrI
 
 				err := c.host.Connect(ctx, pi)
 				if err != nil {
-					log.Debugf("Error connecting to pubsub peer %s: %s", pi.ID, err.Error())
 					return
 				}
 			}(pi)
 
 		case <-ctx.Done():
-			log.Infof("discovery: backoff connector context error %v", ctx.Err())
 			return
 		}
 	}

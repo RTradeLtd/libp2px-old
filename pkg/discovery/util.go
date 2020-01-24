@@ -5,11 +5,7 @@ import (
 	"time"
 
 	"github.com/RTradeLtd/libp2px-core/peer"
-
-	logging "github.com/ipfs/go-log"
 )
-
-var log = logging.Logger("discovery")
 
 // FindPeers is a utility function that synchronously collects peers from a Discoverer.
 func FindPeers(ctx context.Context, d Discoverer, ns string, opts ...Option) ([]peer.AddrInfo, error) {
@@ -33,7 +29,6 @@ func Advertise(ctx context.Context, a Advertiser, ns string, opts ...Option) {
 		for {
 			ttl, err := a.Advertise(ctx, ns, opts...)
 			if err != nil {
-				log.Debugf("Error advertising %s: %s", ns, err.Error())
 				if ctx.Err() != nil {
 					return
 				}

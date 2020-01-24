@@ -22,8 +22,10 @@ type BackoffDiscovery struct {
 	returnedBufSz int
 }
 
+// BackoffDiscoveryOption configures a backoff discovery service
 type BackoffDiscoveryOption func(*BackoffDiscovery) error
 
+// NewBackoffDiscovery provides a backoff discovery service
 func NewBackoffDiscovery(disc discovery.Discovery, stratFactory BackoffFactory, opts ...BackoffDiscoveryOption) (discovery.Discovery, error) {
 	b := &BackoffDiscovery{
 		disc:         disc,
@@ -79,10 +81,12 @@ type backoffCache struct {
 	mux     sync.Mutex
 }
 
+// Advertise advertises support for the namespace
 func (d *BackoffDiscovery) Advertise(ctx context.Context, ns string, opts ...discovery.Option) (time.Duration, error) {
 	return d.disc.Advertise(ctx, ns, opts...)
 }
 
+// FindPeers finds peers supporting the namespace
 func (d *BackoffDiscovery) FindPeers(ctx context.Context, ns string, opts ...discovery.Option) (<-chan peer.AddrInfo, error) {
 	// Get options
 	var options discovery.Options
