@@ -1,20 +1,13 @@
-# cleanup dependencies and download missing ones
-.PHONY: deps
-deps:
-	go mod tidy
-	go mod download
+.PHONY: proto-gen
+proto-gen:
+	protoc \
+		-I=p2p/protocol/identify \
+		-I=${GOPATH}/src \
+		-I=${GOPATH}/src/github.com/gogo/protobuf/protobuf \
+		p2p/protocol/identify/pb/identify.proto \
+		--gogofaster_out=p2p/protocol/identify
 
-# run dependency cleanup, followed by updating the patch version
-.PHONY: deps-update
-deps-update: deps
-	go get -u=patch
-	
-# run tests
-.PHONY: tests
-tests:
-	go test -race -cover -count 1 ./...
-
-# run standard go tooling for better rcode hygiene
+# run standard go tooling for better readability
 .PHONY: tidy
 tidy: imports fmt
 	go vet ./...
@@ -29,9 +22,3 @@ imports:
 .PHONY: fmt
 fmt:
 	find . -type f -name '*.go' -exec gofmt -s -w {} \;
-
-verifiers: staticcheck
-
-staticcheck:
-	@echo "Running $@ check"
-	@GO111MODULE=on ${GOPATH}/bin/staticcheck ./...
