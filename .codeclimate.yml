@@ -1,0 +1,10 @@
+plugins:
+  gofmt:
+    enabled: true
+  govet:
+    enabled: true
+## other configuration excluded from example...
+exclude_patterns:
+- "**/*.pb.go"
+- "**/*_test.go"
+- "**/vendor/"
