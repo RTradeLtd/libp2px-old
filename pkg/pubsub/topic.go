@@ -8,7 +8,7 @@ import (
 
 	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
 
-	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 // ErrTopicClosed is returned if a Topic is utilized after it has been closed

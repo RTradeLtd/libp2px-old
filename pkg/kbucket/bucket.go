@@ -6,7 +6,7 @@ import (
 	"container/list"
 	"sync"
 
-	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 // Bucket holds a list of peers.

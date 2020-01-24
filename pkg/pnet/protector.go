@@ -5,7 +5,7 @@ import (
 	"io"
 	"net"
 
-	ipnet "github.com/libp2p/go-libp2p-core/pnet"
+	ipnet "github.com/RTradeLtd/libp2px-core/pnet"
 )
 
 var _ ipnet.Protector = (*protector)(nil)

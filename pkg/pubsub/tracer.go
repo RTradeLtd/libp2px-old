@@ -11,12 +11,12 @@ import (
 
 	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
 
-	"github.com/libp2p/go-libp2p-core/helpers"
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/network"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/peerstore"
-	"github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/helpers"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 
 	ggio "github.com/gogo/protobuf/io"
 )

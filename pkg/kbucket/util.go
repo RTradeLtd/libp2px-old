@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/libp2p/go-libp2p-core/peer"
-	ks "github.com/libp2p/go-libp2p-kbucket/keyspace"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	ks "github.com/RTradeLtd/libp2px/pkg/kbucket/keyspace"
 
 	u "github.com/ipfs/go-ipfs-util"
 	"github.com/minio/sha256-simd"

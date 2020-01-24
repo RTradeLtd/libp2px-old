@@ -3,8 +3,8 @@ package pubsub
 import (
 	"time"
 
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 
 	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
 )

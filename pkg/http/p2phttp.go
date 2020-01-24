@@ -25,7 +25,7 @@
 //      ...
 //
 // As shown above, a Server only needs a
-// "github.com/libp2p/go-libp2p-gostream" listener. This listener will
+// "github.com/RTradeLtd/libp2px/pkg/gostream" listener. This listener will
 // use a libP2P host to watch for stream tagged with our Protocol.
 //
 // On the other side, a client just needs to be initialized with a custom
@@ -51,11 +51,11 @@ import (
 	"net"
 	"net/http"
 
-	gostream "github.com/libp2p/go-libp2p-gostream"
+	gostream "github.com/RTradeLtd/libp2px/pkg/gostream"
 
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 )
 
 // DefaultP2PProtocol is used to tag and identify streams

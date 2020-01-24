@@ -4,9 +4,9 @@ import (
 	"context"
 	"net"
 
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/network"
-	"github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 )
 
 // listener is an implementation of net.Listener which handles

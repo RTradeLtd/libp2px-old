@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p-core/discovery"
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/discovery"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 type mockDiscoveryServer struct {

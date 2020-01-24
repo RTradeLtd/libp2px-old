@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/peerstore"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peerstore"
 	mh "github.com/multiformats/go-multihash"
 
 	logging "github.com/ipfs/go-log"

@@ -10,12 +10,12 @@ import (
 	"testing"
 	"time"
 
-	bhost "github.com/libp2p/go-libp2p-blankhost"
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/protocol"
+	bhost "github.com/RTradeLtd/libp2px/pkg/blankhost"
 
-	swarmt "github.com/libp2p/go-libp2p-swarm/testing"
+	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 )
 
 func checkMessageRouting(t *testing.T, topic string, pubs []*PubSub, subs []*Subscription) {
@@ -36,9 +36,8 @@ func checkMessageRouting(t *testing.T, topic string, pubs []*PubSub, subs []*Sub
 
 func getNetHosts(t *testing.T, ctx context.Context, n int) []host.Host {
 	var out []host.Host
-
 	for i := 0; i < n; i++ {
-		netw := swarmt.GenSwarm(t, ctx)
+		netw, _ := swarmt.GenSwarm(t, ctx)
 		h := bhost.NewBlankHost(netw)
 		out = append(out, h)
 	}

@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/peer"
 )
 
 func getTopics(psubs []*PubSub, topicID string, opts ...TopicOpt) []*Topic {

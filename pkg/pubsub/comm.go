@@ -5,9 +5,9 @@ import (
 	"context"
 	"io"
 
-	"github.com/libp2p/go-libp2p-core/helpers"
-	"github.com/libp2p/go-libp2p-core/network"
-	"github.com/libp2p/go-libp2p-core/peer"
+	"github.com/RTradeLtd/libp2px-core/helpers"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
 
 	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
 	ggio "github.com/gogo/protobuf/io"

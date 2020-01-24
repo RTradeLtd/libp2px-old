@@ -12,12 +12,12 @@ import (
 
 	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
 
-	"github.com/libp2p/go-libp2p-core/crypto"
-	"github.com/libp2p/go-libp2p-core/discovery"
-	"github.com/libp2p/go-libp2p-core/host"
-	"github.com/libp2p/go-libp2p-core/network"
-	"github.com/libp2p/go-libp2p-core/peer"
-	"github.com/libp2p/go-libp2p-core/protocol"
+	"github.com/RTradeLtd/libp2px-core/crypto"
+	"github.com/RTradeLtd/libp2px-core/discovery"
+	"github.com/RTradeLtd/libp2px-core/host"
+	"github.com/RTradeLtd/libp2px-core/network"
+	"github.com/RTradeLtd/libp2px-core/peer"
+	"github.com/RTradeLtd/libp2px-core/protocol"
 
 	timecache "github.com/whyrusleeping/timecache"
 )

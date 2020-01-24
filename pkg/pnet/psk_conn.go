@@ -6,10 +6,10 @@ import (
 	"io"
 	"net"
 
-	"github.com/libp2p/go-libp2p-core/pnet"
+	"github.com/RTradeLtd/libp2px-core/pnet"
 
 	"github.com/davidlazar/go-crypto/salsa20"
-	pool "github.com/libp2p/go-buffer-pool"
+	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
 )
 
 // we are using buffer pool as user needs their slice back

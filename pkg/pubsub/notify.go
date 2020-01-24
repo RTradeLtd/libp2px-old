@@ -1,7 +1,7 @@
 package pubsub
 
 import (
-	"github.com/libp2p/go-libp2p-core/network"
+	"github.com/RTradeLtd/libp2px-core/network"
 	ma "github.com/multiformats/go-multiaddr"
 )
 
