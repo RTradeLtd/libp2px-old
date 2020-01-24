@@ -14,7 +14,7 @@
 
 > **status: work in progress, not recomended for use in production**
 
-`libp2px` is a fork of `github.com/libp2p/go-libp2p`, intended for use with TemporalX's enterprise IPFS node, but suitable as a performance optimized replacement of `go-libp2p`. We will try to remain backwards compatable as much as possible with `go-libp2p`, and the rest of the network, but this is neither a design goal, nor an outright priority. This does not currently contain a version of `go-libp2p-kad-dht` so you'll need to BYOD, and use an existing implementation which should probably be `go-libp2p-kad-dht`.
+`libp2px` is a complete fork of the libp2p stack, intended for use with TemporalX's enterprise IPFS node, buit suitable for people who need a [performance focused alternative to existing libp2p implementations. We will try to remain backwards compatable as much as possible with `go-libp2p`, and the rest of the network, but this is neither a design goal, nor an outright priority. This does not currently contain a version of `go-libp2p-kad-dht` so you'll need to BYOD, and use an existing implementation. For now we recommend using `go-libp2p-kad-dht`.
 
 # Goals
 
