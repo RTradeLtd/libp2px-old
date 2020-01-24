@@ -10,6 +10,7 @@ import (
 	"github.com/RTradeLtd/libp2px-core/network"
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/transport"
+	"go.uber.org/zap"
 
 	addrutil "github.com/RTradeLtd/libp2px/pkg/utils/addr"
 	ma "github.com/multiformats/go-multiaddr"
@@ -188,7 +189,6 @@ func (s *Swarm) DialPeer(ctx context.Context, p peer.ID) (network.Conn, error) {
 // It is gated by the swarm's dial synchronization systems: dialsync and
 // dialbackoff.
 func (s *Swarm) dialPeer(ctx context.Context, p peer.ID) (*Conn, error) {
-	log.Debugf("[%s] swarm dialing peer [%s]", s.local, p)
 	err := p.Validate()
 	if err != nil {
 		return nil, err
@@ -216,9 +216,6 @@ func (s *Swarm) dialPeer(ctx context.Context, p peer.ID) (*Conn, error) {
 	if err == nil {
 		return conn, nil
 	}
-
-	log.Debugf("network for %s finished dialing %s", s.local, p)
-
 	if ctx.Err() != nil {
 		// Context error trumps any dial errors as it was likely the ultimate cause.
 		return nil, ctx.Err()
@@ -251,7 +248,6 @@ func (s *Swarm) doDial(ctx context.Context, p peer.ID) (*Conn, error) {
 			// Could have canceled the dial because we received a
 			// connection or some other random reason.
 			// Just ignore the error and return the connection.
-			log.Debugf("ignoring dial error because we have a connection: %s", err)
 			return conn, nil
 		}
 		if err != context.Canceled {
@@ -277,7 +273,7 @@ func (s *Swarm) dial(ctx context.Context, p peer.ID) (*Conn, error) {
 	sk := s.peers.PrivKey(s.local)
 	if sk == nil {
 		// fine for sk to be nil, just log.
-		log.Debug("Dial not given PrivateKey, so WILL NOT SECURE conn.")
+		s.logger.Debug("dialer not given private key, will not secure connection", zap.String("peer.id", p.String()))
 	}
 
 	//////
@@ -352,8 +348,6 @@ func (s *Swarm) filterKnownUndialables(addrs []ma.Multiaddr) []ma.Multiaddr {
 }
 
 func (s *Swarm) dialAddrs(ctx context.Context, p peer.ID, remoteAddrs <-chan ma.Multiaddr) (transport.CapableConn, *DialError) {
-	log.Debugf("%s swarm dialing %s", s.local, p)
-
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel() // cancel work when we exit func
 
@@ -374,7 +368,6 @@ dialLoop:
 			active--
 			if resp.Err != nil {
 				// Errors are normal, lots of dials will fail
-				log.Infof("got error on dial: %s", resp.Err)
 				err.recordErr(resp.Addr, resp.Err)
 			} else if resp.Conn != nil {
 				return resp.Conn, nil
@@ -401,7 +394,6 @@ dialLoop:
 			active--
 			if resp.Err != nil {
 				// Errors are normal, lots of dials will fail
-				log.Infof("got error on dial: %s", resp.Err)
 				err.recordErr(resp.Addr, resp.Err)
 			} else if resp.Conn != nil {
 				return resp.Conn, nil
@@ -436,8 +428,6 @@ func (s *Swarm) dialAddr(ctx context.Context, p peer.ID, addr ma.Multiaddr) (tra
 	if s.local == p {
 		return nil, ErrDialToSelf
 	}
-	log.Debugf("%s swarm dialing %s %s", s.local, p, addr)
-
 	tpt := s.TransportForDialing(addr)
 	if tpt == nil {
 		return nil, ErrNoTransport
@@ -452,7 +442,7 @@ func (s *Swarm) dialAddr(ctx context.Context, p peer.ID, addr ma.Multiaddr) (tra
 	if connC.RemotePeer() != p {
 		connC.Close()
 		err = fmt.Errorf("BUG in transport %T: tried to dial %s, dialed %s", p, connC.RemotePeer(), tpt)
-		log.Error(err)
+		s.logger.Error("tansport bug", zap.Error(err))
 		return nil, err
 	}
 

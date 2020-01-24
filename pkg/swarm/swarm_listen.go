@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/RTradeLtd/libp2px-core/network"
+	"go.uber.org/zap"
 
 	ma "github.com/multiformats/go-multiaddr"
 )
@@ -24,7 +25,7 @@ func (s *Swarm) Listen(addrs ...ma.Multiaddr) error {
 
 	for i, e := range errs {
 		if e != nil {
-			log.Warn("listen on %s failed: %s", addrs[i], errs[i])
+			s.logger.Error("listen failed", zap.String("listen.addr", addrs[i].String()), zap.Error(errs[i]))
 		}
 	}
 
@@ -80,11 +81,10 @@ func (s *Swarm) AddListenAddr(a ma.Multiaddr) error {
 			if err != nil {
 				if s.ctx.Err() == nil {
 					// only log if the swarm is still running.
-					log.Errorf("swarm listener accept error: %s", err)
+					s.logger.Error("listener accept error", zap.Error(err))
 				}
 				return
 			}
-			log.Debugf("swarm listener accepted connection: %s", c)
 			s.refs.Add(1)
 			go func() {
 				defer s.refs.Done()
@@ -95,7 +95,7 @@ func (s *Swarm) AddListenAddr(a ma.Multiaddr) error {
 					// ignore.
 					return
 				default:
-					log.Warn("add conn %s failed: ", err)
+					s.logger.Warn("add connection failed", zap.Error(err))
 					return
 				}
 			}()

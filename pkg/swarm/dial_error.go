@@ -21,6 +21,7 @@ type DialError struct {
 	Skipped    int
 }
 
+// Timeout returns whether the error is a timeout one
 func (e *DialError) Timeout() bool {
 	return os.IsTimeout(e.Cause)
 }
