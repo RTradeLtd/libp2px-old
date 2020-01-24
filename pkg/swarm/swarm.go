@@ -133,6 +133,7 @@ func (s *Swarm) teardown() error {
 		for l := range listeners {
 			s.refs.Add(1)
 			go func(c transport.Listener) {
+				defer s.refs.Done()
 				if err := c.Close(); err != nil {
 					s.logger.Error("failed to shutdown listener", zap.Error(err))
 				}
@@ -142,6 +143,7 @@ func (s *Swarm) teardown() error {
 			for _, c := range cs {
 				s.refs.Add(1)
 				go func(cc *Conn) {
+					defer s.refs.Done()
 					if err := cc.Close(); err != nil {
 						s.logger.Error("error shutting down connection", zap.Error(err))
 					}
