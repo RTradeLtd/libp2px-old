@@ -4,13 +4,10 @@ import (
 	pb "github.com/RTradeLtd/libp2px/pkg/autonat/pb"
 
 	"github.com/RTradeLtd/libp2px-core/peer"
-
-	logging "github.com/ipfs/go-log"
 )
 
+// AutoNATProto is the libp2p autonat protocol name
 const AutoNATProto = "/libp2p/autonat/1.0.0"
-
-var log = logging.Logger("autonat")
 
 func newDialMessage(pi peer.AddrInfo) *pb.Message {
 	msg := new(pb.Message)

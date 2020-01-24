@@ -10,9 +10,10 @@ import (
 )
 
 var (
-	// this is purposefully long to require some node stability before advertising as a relay
+	// AdvertiseBootDelay is purposefully long to require some node stability before advertising as a relay
 	AdvertiseBootDelay = 15 * time.Minute
-	AdvertiseTTL       = 30 * time.Minute
+	// AdvertiseTTL is the timeout for advertisements
+	AdvertiseTTL = 30 * time.Minute
 )
 
 // Advertise advertises this node as a libp2p relay.

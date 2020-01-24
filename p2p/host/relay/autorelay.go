@@ -23,15 +23,18 @@ import (
 )
 
 const (
+	// RelayRendezvous defines the dht rendezvous lookup key
 	RelayRendezvous = "/libp2p/relay"
 )
 
 var (
+	// DesiredRelays indicates the minimum number of desired relays
 	DesiredRelays = 1
 
+	// BootDelay defines the boot delay for our autorelay
 	BootDelay = 20 * time.Second
 
-	// These are the known PL-operated relays
+	// DefaultRelays are the known PL-operated relays
 	DefaultRelays = []string{
 		"/ip4/147.75.80.110/tcp/4001/p2p/QmbFgm5zan8P6eWWmeyfncR5feYEMPbht5b1FW1C37aQ7y",
 		"/ip4/147.75.195.153/tcp/4001/p2p/QmW9m57aiBDHAkKj9nmFSEn7ZqrcF1fZS4bipsTCHburei",
@@ -60,6 +63,7 @@ type AutoRelay struct {
 	logger            *zap.Logger
 }
 
+// NewAutoRelay returns an initialized AutoRelay host
 func NewAutoRelay(ctx context.Context, logger *zap.Logger, bhost *basic.BasicHost, discover cdisc.Discoverer, router routing.PeerRouting, static []peer.AddrInfo) *AutoRelay {
 	ar := &AutoRelay{
 		host:       bhost,
@@ -72,7 +76,7 @@ func NewAutoRelay(ctx context.Context, logger *zap.Logger, bhost *basic.BasicHos
 		status:     autonat.NATStatusUnknown,
 		logger:     logger.Named("autorelay"),
 	}
-	ar.autonat = autonat.NewAutoNAT(ctx, bhost, ar.baseAddrs)
+	ar.autonat = autonat.NewAutoNAT(ctx, logger, bhost, ar.baseAddrs)
 	bhost.AddrsFactory = ar.hostAddrs
 	bhost.Network().Notify(ar)
 	go ar.background(ctx)
@@ -322,11 +326,16 @@ func shuffleRelays(pis []peer.AddrInfo) {
 	}
 }
 
-// Notifee
-func (ar *AutoRelay) Listen(network.Network, ma.Multiaddr)      {}
-func (ar *AutoRelay) ListenClose(network.Network, ma.Multiaddr) {}
-func (ar *AutoRelay) Connected(network.Network, network.Conn)   {}
+// Listen Disconnected satisfies the network.Notifiee interface
+func (ar *AutoRelay) Listen(network.Network, ma.Multiaddr) {}
 
+// ListenClose satisfies the network.Notifiee interface
+func (ar *AutoRelay) ListenClose(network.Network, ma.Multiaddr) {}
+
+// Connected satisfies the network.Notifiee interface
+func (ar *AutoRelay) Connected(network.Network, network.Conn) {}
+
+// Disconnected satisfies the network.Notifiee interface
 func (ar *AutoRelay) Disconnected(net network.Network, c network.Conn) {
 	p := c.RemotePeer()
 
@@ -347,5 +356,8 @@ func (ar *AutoRelay) Disconnected(net network.Network, c network.Conn) {
 	}
 }
 
+// OpenedStream satisfies the network.Notifiee interface
 func (ar *AutoRelay) OpenedStream(network.Network, network.Stream) {}
+
+// ClosedStream satisfies the network.Notifiee interface
 func (ar *AutoRelay) ClosedStream(network.Network, network.Stream) {}

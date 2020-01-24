@@ -1,5 +1,5 @@
 /*
-The relay package contains the components necessary to implement the "autorelay"
+Package relay contains the components necessary to implement the "autorelay"
 feature.
 
 Warning: the internal interfaces are unstable.

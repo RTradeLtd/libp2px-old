@@ -12,27 +12,32 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 	ma "github.com/multiformats/go-multiaddr"
+	"go.uber.org/zap"
 )
 
 // NATStatus is the state of NAT as detected by the ambient service.
 type NATStatus int
 
 const (
-	// NAT status is unknown; this means that the ambient service has not been
+	// NATStatusUnknown this means that the ambient service has not been
 	// able to decide the presence of NAT in the most recent attempt to test
 	// dial through known autonat peers.  initial state.
 	NATStatusUnknown NATStatus = iota
-	// NAT status is publicly dialable
+	// NATStatusPublic indicates the peer is on a publicly accessible network
 	NATStatusPublic
-	// NAT status is private network
+	// NATStatusPrivate indicates the peer is not on a publicly accessible network
 	NATStatusPrivate
 )
 
 var (
-	AutoNATBootDelay       = 15 * time.Second
-	AutoNATRetryInterval   = 90 * time.Second
+	// AutoNATBootDelay defines the boot delay
+	AutoNATBootDelay = 15 * time.Second
+	// AutoNATRetryInterval defines the retry interval
+	AutoNATRetryInterval = 90 * time.Second
+	// AutoNATRefreshInterval defines the refresh interval
 	AutoNATRefreshInterval = 15 * time.Minute
-	AutoNATRequestTimeout  = 30 * time.Second
+	// AutoNATRequestTimeout defines the request timeout
+	AutoNATRequestTimeout = 30 * time.Second
 )
 
 // AutoNAT is the interface for ambient NAT autodiscovery
@@ -61,11 +66,12 @@ type AmbientAutoNAT struct {
 	// If only a single autoNAT peer is known, then the confidence increases
 	// for each failure until it reaches 3.
 	confidence int
+	logger     *zap.Logger
 }
 
 // NewAutoNAT creates a new ambient NAT autodiscovery instance attached to a host
 // If getAddrs is nil, h.Addrs will be used
-func NewAutoNAT(ctx context.Context, h host.Host, getAddrs GetAddrs) AutoNAT {
+func NewAutoNAT(ctx context.Context, logger *zap.Logger, h host.Host, getAddrs GetAddrs) AutoNAT {
 	if getAddrs == nil {
 		getAddrs = h.Addrs
 	}
@@ -76,6 +82,7 @@ func NewAutoNAT(ctx context.Context, h host.Host, getAddrs GetAddrs) AutoNAT {
 		getAddrs: getAddrs,
 		peers:    make(map[peer.ID][]ma.Multiaddr),
 		status:   NATStatusUnknown,
+		logger:   logger.Named("autonat"),
 	}
 
 	h.Network().Notify(as)
@@ -84,12 +91,14 @@ func NewAutoNAT(ctx context.Context, h host.Host, getAddrs GetAddrs) AutoNAT {
 	return as
 }
 
+// Status returns the autonat status
 func (as *AmbientAutoNAT) Status() NATStatus {
 	as.mx.Lock()
 	defer as.mx.Unlock()
 	return as.status
 }
 
+// PublicAddr returns the publicly accessibel address for this autonat instance
 func (as *AmbientAutoNAT) PublicAddr() (ma.Multiaddr, error) {
 	as.mx.Lock()
 	defer as.mx.Unlock()
@@ -130,7 +139,7 @@ func (as *AmbientAutoNAT) autodetect() {
 	peers := as.getPeers()
 
 	if len(peers) == 0 {
-		log.Debugf("skipping NAT auto detection; no autonat peers")
+		as.logger.Debug("no autonat peers")
 		return
 	}
 
@@ -165,20 +174,17 @@ func (as *AmbientAutoNAT) autodetect() {
 
 			switch {
 			case err == nil:
-				log.Debugf("Dialback through %s successful; public address is %s", pi.ID.Pretty(), a.String())
 				result.Lock()
 				result.public++
 				result.pubaddr = a
 				result.Unlock()
 
 			case IsDialError(err):
-				log.Debugf("Dialback through %s failed", pi.ID.Pretty())
+				as.logger.Error("dialback failed", zap.Error(err), zap.String("peer.id", pi.ID.String()))
 				result.Lock()
 				result.private++
 				result.Unlock()
-
 			default:
-				log.Debugf("Dialback error through %s: %s", pi.ID.Pretty(), err)
 			}
 		}(pi)
 	}
@@ -187,7 +193,6 @@ func (as *AmbientAutoNAT) autodetect() {
 
 	as.mx.Lock()
 	if result.public > 0 {
-		log.Debugf("NAT status is public")
 		if as.status == NATStatusPrivate {
 			// we are flipping our NATStatus, so confidence drops to 0
 			as.confidence = 0
@@ -197,7 +202,6 @@ func (as *AmbientAutoNAT) autodetect() {
 		as.status = NATStatusPublic
 		as.addr = result.pubaddr
 	} else if result.private > 0 {
-		log.Debugf("NAT status is private")
 		if as.status == NATStatusPublic {
 			// we are flipping our NATStatus, so confidence drops to 0
 			as.confidence = 0
@@ -210,7 +214,6 @@ func (as *AmbientAutoNAT) autodetect() {
 		// don't just flip to unknown, reduce confidence first
 		as.confidence--
 	} else {
-		log.Debugf("NAT status is unknown")
 		as.status = NATStatusUnknown
 		as.addr = nil
 	}
@@ -240,9 +243,8 @@ func (as *AmbientAutoNAT) getPeers() []peer.AddrInfo {
 	if len(connected) < 3 {
 		shufflePeers(others)
 		return append(connected, others...)
-	} else {
-		return connected
 	}
+	return connected
 }
 
 func shufflePeers(peers []peer.AddrInfo) {
