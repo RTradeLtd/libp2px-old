@@ -156,7 +156,7 @@ func (m *mdnsService) pollForEntries(ctx context.Context) {
 }
 
 func (m *mdnsService) handleEntry(e *mdns.ServiceEntry) {
-	mpeer, err := peer.IDB58Decode(e.Info)
+	mpeer, err := peer.Decode(e.Info)
 	if err != nil {
 		m.logger.Warn("failed parsig mdns entry peer id", zap.Error(err))
 		return

@@ -82,5 +82,5 @@ func (r *Relay) tryDialRelays(ctx context.Context, dinfo peer.AddrInfo) (*Conn, 
 		log.Debugf("error opening relay connection through %s: %s", dinfo.ID, err.Error())
 	}
 
-	return nil, fmt.Errorf("Failed to dial through %d known relay hosts", len(relays))
+	return nil, fmt.Errorf("failed to dial through %d known relay hosts", len(relays))
 }

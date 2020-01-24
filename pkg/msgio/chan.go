@@ -101,9 +101,3 @@ Loop:
 func (s *Chan) Close() {
 	s.CloseChan <- true
 }
-
-// nullLocker conforms to the sync.Locker interface but does nothing.
-type nullLocker struct{}
-
-func (l *nullLocker) Lock()   {}
-func (l *nullLocker) Unlock() {}

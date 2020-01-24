@@ -151,7 +151,7 @@ func (mab *memoryAddrBook) AddAddrs(p peer.ID, addrs []ma.Multiaddr, ttl time.Du
 	exp := time.Now().Add(ttl)
 	for _, addr := range addrs {
 		if addr == nil {
-			log.Warningf("was passed nil multiaddr for %s", p)
+			log.Warn("was passed nil multiaddr for %s", p)
 			continue
 		}
 		asBytes := addr.Bytes()
@@ -194,7 +194,7 @@ func (mab *memoryAddrBook) SetAddrs(p peer.ID, addrs []ma.Multiaddr, ttl time.Du
 	exp := time.Now().Add(ttl)
 	for _, addr := range addrs {
 		if addr == nil {
-			log.Warningf("was passed nil multiaddr for %s", p)
+			log.Warn("was passed nil multiaddr for %s", p)
 			continue
 		}
 
@@ -279,10 +279,8 @@ func (mab *memoryAddrBook) AddrStream(ctx context.Context, p peer.ID) <-chan ma.
 }
 
 type addrSub struct {
-	pubch  chan ma.Multiaddr
-	lk     sync.Mutex
-	buffer []ma.Multiaddr
-	ctx    context.Context
+	pubch chan ma.Multiaddr
+	ctx   context.Context
 }
 
 func (s *addrSub) pubAddr(a ma.Multiaddr) {

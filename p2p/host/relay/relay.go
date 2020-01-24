@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
+	cdisc "github.com/RTradeLtd/libp2px-core/discovery"
 	discovery "github.com/RTradeLtd/libp2px/pkg/discovery"
-
 	ma "github.com/multiformats/go-multiaddr"
 )
 
@@ -16,11 +16,11 @@ var (
 )
 
 // Advertise advertises this node as a libp2p relay.
-func Advertise(ctx context.Context, advertise discovery.Advertiser) {
+func Advertise(ctx context.Context, advertise cdisc.Advertiser) {
 	go func() {
 		select {
 		case <-time.After(AdvertiseBootDelay):
-			discovery.Advertise(ctx, advertise, RelayRendezvous, discovery.TTL(AdvertiseTTL))
+			discovery.Advertise(ctx, advertise, RelayRendezvous, cdisc.TTL(AdvertiseTTL))
 		case <-ctx.Done():
 		}
 	}()

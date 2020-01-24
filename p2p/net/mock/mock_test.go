@@ -15,19 +15,10 @@ import (
 	"github.com/RTradeLtd/libp2px-core/network"
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/protocol"
-	"github.com/RTradeLtd/libp2px-core/test"
 	tnet "github.com/RTradeLtd/libp2px/pkg/testing/net"
 	detectrace "github.com/ipfs/go-detect-race"
 	"go.uber.org/zap/zaptest"
 )
-
-func randPeer(t *testing.T) peer.ID {
-	p, err := test.RandPeerID()
-	if err != nil {
-		t.Fatal(err)
-	}
-	return p
-}
 
 func TestNetworkSetup(t *testing.T) {
 	ctx := context.Background()

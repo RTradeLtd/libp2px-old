@@ -271,26 +271,6 @@ func (h *BasicHost) background(ctx context.Context) {
 	}
 }
 
-func sameAddrs(a, b []ma.Multiaddr) bool {
-	if len(a) != len(b) {
-		return false
-	}
-
-	bmap := make(map[string]struct{}, len(b))
-	for _, addr := range b {
-		bmap[string(addr.Bytes())] = struct{}{}
-	}
-
-	for _, addr := range a {
-		_, ok := bmap[string(addr.Bytes())]
-		if !ok {
-			return false
-		}
-	}
-
-	return true
-}
-
 // ID returns the (local) peer.ID associated with this Host
 func (h *BasicHost) ID() peer.ID {
 	return h.Network().LocalPeer()

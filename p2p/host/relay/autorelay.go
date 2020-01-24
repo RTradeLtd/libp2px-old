@@ -17,6 +17,7 @@ import (
 	discovery "github.com/RTradeLtd/libp2px/pkg/discovery"
 	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 
+	cdisc "github.com/RTradeLtd/libp2px-core/discovery"
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr-net"
 )
@@ -41,7 +42,7 @@ var (
 // AutoRelay is a Host that uses relays for connectivity when a NAT is detected.
 type AutoRelay struct {
 	host     *basic.BasicHost
-	discover discovery.Discoverer
+	discover cdisc.Discoverer
 	router   routing.PeerRouting
 	autonat  autonat.AutoNAT
 	addrsF   basic.AddrsFactory
@@ -59,7 +60,7 @@ type AutoRelay struct {
 	logger            *zap.Logger
 }
 
-func NewAutoRelay(ctx context.Context, logger *zap.Logger, bhost *basic.BasicHost, discover discovery.Discoverer, router routing.PeerRouting, static []peer.AddrInfo) *AutoRelay {
+func NewAutoRelay(ctx context.Context, logger *zap.Logger, bhost *basic.BasicHost, discover cdisc.Discoverer, router routing.PeerRouting, static []peer.AddrInfo) *AutoRelay {
 	ar := &AutoRelay{
 		host:       bhost,
 		discover:   discover,
@@ -254,7 +255,7 @@ func (ar *AutoRelay) discoverRelays(ctx context.Context) ([]peer.AddrInfo, error
 	}
 	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
-	return discovery.FindPeers(ctx, ar.discover, RelayRendezvous, discovery.Limit(1000))
+	return discovery.FindPeers(ctx, ar.discover, RelayRendezvous, cdisc.Limit(1000))
 }
 
 func (ar *AutoRelay) selectRelays(ctx context.Context, pis []peer.AddrInfo) []peer.AddrInfo {

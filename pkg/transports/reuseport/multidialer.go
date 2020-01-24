@@ -100,7 +100,7 @@ func newMultiDialer(unspec net.IP, listeners map[*listener]struct{}) dialer {
 					Port: laddr.Port,
 				}
 			} else {
-				log.Warning("listening on external interfaces on multiple ports, will dial from %d, not %s", m.global, laddr)
+				log.Warn("listening on external interfaces on multiple ports, will dial from %d, not %s", m.global, laddr)
 			}
 		case laddr.IP.IsUnspecified():
 			m.unspecified = append(m.unspecified, laddr)

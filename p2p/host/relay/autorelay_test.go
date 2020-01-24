@@ -173,7 +173,7 @@ func TestAutoRelay(t *testing.T) {
 
 	// verify that we don't advertise relay addrs initially
 	for _, addr := range h3.Addrs() {
-		_, err := addr.ValueForProtocol(circuit.P_CIRCUIT)
+		_, err := addr.ValueForProtocol(ma.P_CIRCUIT)
 		if err == nil {
 			t.Fatal("relay addr advertised before auto detection")
 		}
@@ -195,7 +195,7 @@ func TestAutoRelay(t *testing.T) {
 			t.Fatal("unspecific relay addr advertised")
 		}
 
-		_, err := addr.ValueForProtocol(circuit.P_CIRCUIT)
+		_, err := addr.ValueForProtocol(ma.P_CIRCUIT)
 		if err == nil {
 			haveRelay = true
 		}
@@ -208,7 +208,7 @@ func TestAutoRelay(t *testing.T) {
 	// verify that we can connect through the relay
 	var raddrs []ma.Multiaddr
 	for _, addr := range h3.Addrs() {
-		_, err := addr.ValueForProtocol(circuit.P_CIRCUIT)
+		_, err := addr.ValueForProtocol(ma.P_CIRCUIT)
 		if err == nil {
 			raddrs = append(raddrs, addr)
 		}
@@ -226,7 +226,7 @@ func TestAutoRelay(t *testing.T) {
 			t.Fatal("unspecific relay addr advertised")
 		}
 
-		_, err := addr.ValueForProtocol(circuit.P_CIRCUIT)
+		_, err := addr.ValueForProtocol(ma.P_CIRCUIT)
 		if err == nil {
 			haveRelay = true
 		}

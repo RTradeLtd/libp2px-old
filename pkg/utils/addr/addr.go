@@ -1,7 +1,6 @@
 package addrutil
 
 import (
-	"context"
 	"fmt"
 
 	logging "github.com/ipfs/go-log"
@@ -98,14 +97,6 @@ func ResolveUnspecifiedAddresses(unspecAddrs, ifaceAddrs []ma.Multiaddr) ([]ma.M
 		return nil, fmt.Errorf("failed to specify addrs: %s", unspecAddrs)
 	}
 
-	log.Event(context.TODO(), "interfaceListenAddresses", func() logging.Loggable {
-		var addrs []string
-		for _, addr := range outputAddrs {
-			addrs = append(addrs, addr.String())
-		}
-		return logging.Metadata{"addresses": addrs}
-	}())
-
 	log.Debug("ResolveUnspecifiedAddresses:", unspecAddrs, ifaceAddrs, outputAddrs)
 	return outputAddrs, nil
 }
@@ -184,7 +175,7 @@ func CheckNATWarning(observed, expected ma.Multiaddr, listen []ma.Multiaddr) {
 	}
 
 	if !AddrInList(observed, listen) { // probably a nat
-		log.Warningf(natWarning, observed, listen)
+		log.Warnf(natWarning, observed, listen)
 	}
 }
 

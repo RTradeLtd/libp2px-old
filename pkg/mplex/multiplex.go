@@ -46,15 +46,15 @@ var (
 
 type timeout struct{}
 
-func (_ timeout) Error() string {
+func (t timeout) Error() string {
 	return "i/o deadline exceeded"
 }
 
-func (_ timeout) Temporary() bool {
+func (t timeout) Temporary() bool {
 	return true
 }
 
-func (_ timeout) Timeout() bool {
+func (t timeout) Timeout() bool {
 	return true
 }
 
@@ -78,9 +78,8 @@ type Multiplex struct {
 	shutdownErr  error
 	shutdownLock sync.Mutex
 
-	writeCh         chan []byte
-	writeTimer      *time.Timer
-	writeTimerFired bool
+	writeCh    chan []byte
+	writeTimer *time.Timer
 
 	nstreams chan *Stream
 
@@ -199,72 +198,9 @@ func (mp *Multiplex) handleOutgoing() {
 			pool.Put(data)
 			if err != nil {
 				// the connection is closed by this time
-				log.Warningf("error writing data: %s", err.Error())
+				log.Warn("error writing data: %s", err.Error())
 				return
 			}
-		}
-	}
-}
-
-func (mp *Multiplex) writeMsg(data []byte) error {
-	if len(data) >= 512 {
-		err := mp.doWriteMsg(data)
-		pool.Put(data)
-		return err
-	}
-
-	buf := pool.Get(4096)
-	defer pool.Put(buf)
-
-	n := copy(buf, data)
-	pool.Put(data)
-
-	if !mp.writeTimerFired {
-		if !mp.writeTimer.Stop() {
-			<-mp.writeTimer.C
-		}
-	}
-	mp.writeTimer.Reset(WriteCoalesceDelay)
-	mp.writeTimerFired = false
-
-	for {
-		select {
-		case data = <-mp.writeCh:
-			wr := copy(buf[n:], data)
-			if wr < len(data) {
-				// we filled the buffer, send it
-				err := mp.doWriteMsg(buf)
-				if err != nil {
-					pool.Put(data)
-					return err
-				}
-
-				if len(data)-wr >= 512 {
-					// the remaining data is not a small write, send it
-					err := mp.doWriteMsg(data[wr:])
-					pool.Put(data)
-					return err
-				}
-
-				n = copy(buf, data[wr:])
-
-				// we've written some, reset the timer to coalesce the rest
-				if !mp.writeTimer.Stop() {
-					<-mp.writeTimer.C
-				}
-				mp.writeTimer.Reset(WriteCoalesceDelay)
-			} else {
-				n += wr
-			}
-
-			pool.Put(data)
-
-		case <-mp.writeTimer.C:
-			mp.writeTimerFired = true
-			return mp.doWriteMsg(buf[:n])
-
-		case <-mp.shutdown:
-			return ErrShutdown
 		}
 	}
 }
@@ -486,7 +422,7 @@ func (mp *Multiplex) handleIncoming() {
 				// closed stream, return b
 				pool.Put(b)
 
-				log.Warningf("Received data from remote after stream was closed by them. (len = %d)", len(b))
+				log.Warn("Received data from remote after stream was closed by them. (len = %d)", len(b))
 				// go mp.sendResetMsg(msch.id.header(resetTag), false)
 				continue
 			}
@@ -498,7 +434,7 @@ func (mp *Multiplex) handleIncoming() {
 				pool.Put(b)
 			case <-recvTimeout.C:
 				pool.Put(b)
-				log.Warningf("timed out receiving message into stream queue.")
+				log.Warn("timed out receiving message into stream queue.")
 				// Do not do this asynchronously. Otherwise, we
 				// could drop a message, then receive a message,
 				// then reset.
@@ -536,7 +472,7 @@ func (mp *Multiplex) sendResetMsg(header uint64, hard bool) {
 	err := mp.sendMsg(ctx.Done(), header, nil)
 	if err != nil && !mp.isShutdown() {
 		if hard {
-			log.Warningf("error sending reset message: %s; killing connection", err.Error())
+			log.Warn("error sending reset message: %s; killing connection", err.Error())
 			mp.Close()
 		} else {
 			log.Debugf("error sending reset message: %s", err.Error())
@@ -566,7 +502,7 @@ func (mp *Multiplex) readNext() ([]byte, error) {
 	}
 
 	if l > uint64(MaxMessageSize) {
-		return nil, fmt.Errorf("message size too large!")
+		return nil, fmt.Errorf("message size too large")
 	}
 
 	if l == 0 {
@@ -580,12 +516,4 @@ func (mp *Multiplex) readNext() ([]byte, error) {
 	}
 
 	return buf[:n], nil
-}
-
-func isFatalNetworkError(err error) bool {
-	nerr, ok := err.(net.Error)
-	if ok {
-		return !(nerr.Timeout() || nerr.Temporary())
-	}
-	return false
 }

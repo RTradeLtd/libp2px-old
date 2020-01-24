@@ -91,11 +91,6 @@ type Session struct {
 	keepaliveTimer *time.Timer
 }
 
-const (
-	stageInitial uint32 = iota
-	stageFinal
-)
-
 // newSession is used to construct a new session
 func newSession(config *Config, conn net.Conn, client bool, readBuf int) *Session {
 	var reader io.Reader = conn
@@ -316,7 +311,7 @@ func (s *Session) Ping() (time.Duration, error) {
 	}
 
 	// Compute the RTT
-	return time.Now().Sub(start), nil
+	return time.Since(start), nil
 }
 
 // startKeepalive starts the keepalive process.

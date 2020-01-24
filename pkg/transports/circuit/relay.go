@@ -260,7 +260,7 @@ func (r *Relay) handleNewStream(s network.Stream) {
 	case pb.CircuitRelay_CAN_HOP:
 		r.handleCanHop(s, &msg)
 	default:
-		log.Warningf("unexpected relay handshake: %d", msg.GetType())
+		log.Warn("unexpected relay handshake: %d", msg.GetType())
 		r.handleError(s, pb.CircuitRelay_MALFORMED_MESSAGE)
 	}
 }
@@ -276,7 +276,7 @@ func (r *Relay) handleHopStream(s network.Stream, msg *pb.CircuitRelay) {
 	defer atomic.AddInt32(&r.streamCount, -1)
 
 	if (streamCount + liveHopCount) > int32(HopStreamLimit) {
-		log.Warning("hop stream limit exceeded; resetting stream")
+		log.Warn("hop stream limit exceeded; resetting stream")
 		s.Reset()
 		return
 	}
@@ -475,7 +475,7 @@ func (r *Relay) handleCanHop(s network.Stream, msg *pb.CircuitRelay) {
 }
 
 func (r *Relay) handleError(s network.Stream, code pb.CircuitRelay_Status) {
-	log.Warningf("relay error: %s (%d)", pb.CircuitRelay_Status_name[int32(code)], code)
+	log.Warn("relay error: %s (%d)", pb.CircuitRelay_Status_name[int32(code)], code)
 	err := r.writeResponse(s, code)
 	if err != nil {
 		s.Reset()

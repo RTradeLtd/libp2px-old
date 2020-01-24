@@ -197,9 +197,6 @@ func (s *Swarm) dialPeer(ctx context.Context, p peer.ID) (*Conn, error) {
 	if p == s.local {
 		return nil, ErrDialToSelf
 	}
-
-	defer log.EventBegin(ctx, "swarmDialAttemptSync", p).Done()
-
 	// check if we already have an open connection first
 	conn := s.bestConnToPeer(p)
 	if conn != nil {
@@ -208,7 +205,6 @@ func (s *Swarm) dialPeer(ctx context.Context, p peer.ID) (*Conn, error) {
 
 	// if this peer has been backed off, lets get out of here
 	if s.backf.Backoff(p) {
-		log.Event(ctx, "swarmDialBackoff", p)
 		return nil, ErrDialBackoff
 	}
 

@@ -222,11 +222,11 @@ func (mn *mocknet) validate(n network.Network) (*peernet, error) {
 
 	nr, ok := n.(*peernet)
 	if !ok {
-		return nil, fmt.Errorf("Network not supported (use mock package nets only)")
+		return nil, fmt.Errorf("network not supported (use mock package nets only)")
 	}
 
 	if _, found := mn.nets[nr.peer]; !found {
-		return nil, fmt.Errorf("Network not on mocknet. is it from another mocknet?")
+		return nil, fmt.Errorf("network not on mocknet. is it from another mocknet?")
 	}
 
 	return nr, nil

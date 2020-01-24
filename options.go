@@ -284,7 +284,7 @@ func FilterAddresses(addrs ...*net.IPNet) Option {
 			cfg.Filters = filter.NewFilters()
 		}
 		for _, addr := range addrs {
-			cfg.Filters.AddDialFilter(addr)
+			cfg.Filters.AddFilter(*addr, filter.ActionDeny)
 		}
 		return nil
 	}

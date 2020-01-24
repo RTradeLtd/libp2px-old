@@ -79,7 +79,7 @@ func newMac(hashType string, key []byte) (HMAC, error) {
 	case "SHA256":
 		return HMAC{hmac.New(sha256.New, key), sha256.Size}, nil
 	default:
-		return HMAC{}, fmt.Errorf("Unrecognized hash type: %s", hashType)
+		return HMAC{}, fmt.Errorf("unrecognized hash type: %s", hashType)
 	}
 }
 
@@ -88,7 +88,7 @@ func newBlockCipher(cipherT string, key []byte) (cipher.Block, error) {
 	case "AES-128", "AES-256":
 		return aes.NewCipher(key)
 	default:
-		return nil, fmt.Errorf("Unrecognized cipher type: %s", cipherT)
+		return nil, fmt.Errorf("unrecognized cipher type: %s", cipherT)
 	}
 }
 
@@ -115,5 +115,5 @@ func selectBest(order int, p1, p2 string) (string, error) {
 		}
 	}
 
-	return "", errors.New("No algorithms in common!")
+	return "", errors.New("no algorithms in common")
 }
