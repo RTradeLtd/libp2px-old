@@ -13,10 +13,10 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 	"github.com/RTradeLtd/libp2px-core/protocol"
 	"go.uber.org/zap"
- 
+
 	ma "github.com/multiformats/go-multiaddr"
 )
- 
+
 // AddressTTL is the expiry time for our addresses.
 // We expire them quickly.
 const AddressTTL = time.Second * 10
