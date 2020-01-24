@@ -106,8 +106,7 @@ func TestDefaultListenAddrs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
-	if len(h.Network().ListenAddresses()) != 1 {
+	if len(h.Network().ListenAddresses()) != 1 || len(h.Network().ListenAddresses()) == 0 {
 		t.Error("expected one listen addr with user defined transport")
 	}
 	if re2.FindStringSubmatchIndex(h.Network().ListenAddresses()[0].String()) == nil {
