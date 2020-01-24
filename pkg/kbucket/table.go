@@ -12,11 +12,7 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 	mh "github.com/multiformats/go-multihash"
-
-	logging "github.com/ipfs/go-log"
 )
-
-var log = logging.Logger("table")
 
 var ErrPeerRejectedHighLatency = errors.New("peer rejected; latency too high")
 var ErrPeerRejectedNoCapacity = errors.New("peer rejected; insufficient capacity")
@@ -233,7 +229,6 @@ func (rt *RoutingTable) NearestPeer(id ID) peer.ID {
 		return peers[0]
 	}
 
-	log.Debugf("NearestPeer: Returning nil, table size = %d", rt.Size())
 	return ""
 }
 

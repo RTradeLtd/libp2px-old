@@ -14,13 +14,9 @@ import (
 
 	"github.com/RTradeLtd/libp2px/pkg/eventbus"
 
-	logging "github.com/ipfs/go-log"
-
 	ma "github.com/multiformats/go-multiaddr"
 	mstream "github.com/multiformats/go-multistream"
 )
-
-var log = logging.Logger("blankhost")
 
 // BlankHost is the thinnest implementation of the host.Host interface
 type BlankHost struct {
@@ -55,7 +51,6 @@ var _ host.Host = (*BlankHost)(nil)
 func (bh *BlankHost) Addrs() []ma.Multiaddr {
 	addrs, err := bh.n.InterfaceListenAddresses()
 	if err != nil {
-		log.Debug("error retrieving network interface addrs: ", err)
 		return nil
 	}
 
@@ -146,7 +141,6 @@ func (bh *BlankHost) SetStreamHandlerMatch(pid protocol.ID, m func(string) bool,
 func (bh *BlankHost) newStreamHandler(s network.Stream) {
 	protoID, handle, err := bh.Mux().Negotiate(s)
 	if err != nil {
-		log.Warning("protocol mux failed: %s", err)
 		s.Close()
 		return
 	}
