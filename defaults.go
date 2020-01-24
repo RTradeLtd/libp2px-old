@@ -3,8 +3,8 @@ package libp2p
 // This file contains all the default configuration options.
 
 import (
-	"crypto/rand"
 	"context"
+	"crypto/rand"
 
 	crypto "github.com/RTradeLtd/libp2px-core/crypto"
 	pstoremem "github.com/RTradeLtd/libp2px/pkg/peerstore/pstoremem"
