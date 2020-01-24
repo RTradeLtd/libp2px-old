@@ -6,8 +6,8 @@ import (
 
 	"github.com/RTradeLtd/libp2px-core/host"
 	"github.com/RTradeLtd/libp2px-core/peer"
-	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"
+	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 	"go.uber.org/zap/zaptest"
 
 	mux "github.com/RTradeLtd/libp2px-core/mux"

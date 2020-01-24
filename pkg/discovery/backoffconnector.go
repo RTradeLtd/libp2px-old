@@ -2,9 +2,10 @@ package discovery
 
 import (
 	"context"
-	lru "github.com/hashicorp/golang-lru"
 	"sync"
 	"time"
+
+	lru "github.com/hashicorp/golang-lru"
 
 	"github.com/RTradeLtd/libp2px-core/host"
 	"github.com/RTradeLtd/libp2px-core/peer"

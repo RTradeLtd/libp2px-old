@@ -2,8 +2,9 @@ package discovery
 
 import (
 	"context"
-	"github.com/RTradeLtd/libp2px-core/discovery"
 	"time"
+
+	"github.com/RTradeLtd/libp2px-core/discovery"
 
 	cid "github.com/ipfs/go-cid"
 

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	logging "github.com/ipfs/go-log"
 	peer "github.com/RTradeLtd/libp2px-core/peer"
+	logging "github.com/ipfs/go-log"
 	ma "github.com/multiformats/go-multiaddr"
 
 	pstore "github.com/RTradeLtd/libp2px-core/peerstore"
@@ -58,7 +58,7 @@ func NewAddrBook() pstore.AddrBook {
 
 	ab := &memoryAddrBook{
 		segments: func() (ret addrSegments) {
-			for i, _ := range ret {
+			for i := range ret {
 				ret[i] = &addrSegment{addrs: make(map[peer.ID]map[string]*expiringAddr)}
 			}
 			return ret
@@ -117,7 +117,7 @@ func (mab *memoryAddrBook) PeersWithAddrs() peer.IDSlice {
 	var pids peer.IDSlice
 	for _, s := range mab.segments {
 		s.RLock()
-		for pid, _ := range s.addrs {
+		for pid := range s.addrs {
 			pids = append(pids, pid)
 		}
 		s.RUnlock()

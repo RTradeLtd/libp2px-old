@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	logging "github.com/ipfs/go-log"
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
+	logging "github.com/ipfs/go-log"
 )
 
 var log = logging.Logger("mplex")

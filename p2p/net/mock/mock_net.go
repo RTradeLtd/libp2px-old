@@ -16,8 +16,8 @@ import (
 
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"
 
-	p2putil "github.com/RTradeLtd/libp2px/pkg/utils/net"
 	pstoremem "github.com/RTradeLtd/libp2px/pkg/peerstore/pstoremem"
+	p2putil "github.com/RTradeLtd/libp2px/pkg/utils/net"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

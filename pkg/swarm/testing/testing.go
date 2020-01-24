@@ -13,9 +13,9 @@ import (
 	pstoremem "github.com/RTradeLtd/libp2px/pkg/peerstore/pstoremem"
 	csms "github.com/RTradeLtd/libp2px/pkg/transports/conn-security-multistream"
 	secio "github.com/RTradeLtd/libp2px/pkg/transports/secio"
+	msmux "github.com/RTradeLtd/libp2px/pkg/transports/stream-muxer-multistream"
 	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 	yamux "github.com/RTradeLtd/libp2px/pkg/transports/yamux"
-	msmux "github.com/RTradeLtd/libp2px/pkg/transports/stream-muxer-multistream"
 
 	swarm "github.com/RTradeLtd/libp2px/pkg/swarm"
 )

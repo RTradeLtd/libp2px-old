@@ -4,13 +4,13 @@ import (
 	"context"
 	"fmt"
 
-	pb "github.com/RTradeLtd/libp2px/pkg/autonat/pb"
 	"github.com/RTradeLtd/libp2px-core/helpers"
+	pb "github.com/RTradeLtd/libp2px/pkg/autonat/pb"
 
-	ggio "github.com/gogo/protobuf/io"
 	"github.com/RTradeLtd/libp2px-core/host"
 	"github.com/RTradeLtd/libp2px-core/network"
 	"github.com/RTradeLtd/libp2px-core/peer"
+	ggio "github.com/gogo/protobuf/io"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

@@ -14,7 +14,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/RTradeLtd/libp2px/pkg/buffer-pool"
+	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
 )
 
 // Session is used to wrap a reliable ordered connection and to

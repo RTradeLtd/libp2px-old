@@ -5,11 +5,11 @@ import (
 	"net"
 	"time"
 
-	logging "github.com/ipfs/go-log"
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/transport"
-	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 	rtpt "github.com/RTradeLtd/libp2px/pkg/transports/reuseport"
+	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
+	logging "github.com/ipfs/go-log"
 
 	ma "github.com/multiformats/go-multiaddr"
 	mafmt "github.com/multiformats/go-multiaddr-fmt"

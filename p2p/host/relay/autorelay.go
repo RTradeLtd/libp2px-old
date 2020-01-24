@@ -12,10 +12,10 @@ import (
 	"github.com/RTradeLtd/libp2px-core/routing"
 	"go.uber.org/zap"
 
-	autonat "github.com/RTradeLtd/libp2px/pkg/autonat"
-	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 	basic "github.com/RTradeLtd/libp2px/p2p/host/basic"
+	autonat "github.com/RTradeLtd/libp2px/pkg/autonat"
 	discovery "github.com/RTradeLtd/libp2px/pkg/discovery"
+	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr-net"

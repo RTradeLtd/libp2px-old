@@ -10,8 +10,8 @@ import (
 	mplex "github.com/RTradeLtd/libp2px/pkg/transports/mplex"
 	secio "github.com/RTradeLtd/libp2px/pkg/transports/secio"
 	tcp "github.com/RTradeLtd/libp2px/pkg/transports/tcp"
-	yamux "github.com/RTradeLtd/libp2px/pkg/transports/yamux"
 	ws "github.com/RTradeLtd/libp2px/pkg/transports/ws"
+	yamux "github.com/RTradeLtd/libp2px/pkg/transports/yamux"
 	multiaddr "github.com/multiformats/go-multiaddr"
 )
 

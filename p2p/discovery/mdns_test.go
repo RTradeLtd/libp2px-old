@@ -9,8 +9,8 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"go.uber.org/zap/zaptest"
 
-	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 	bhost "github.com/RTradeLtd/libp2px/p2p/host/basic"
+	swarmt "github.com/RTradeLtd/libp2px/pkg/swarm/testing"
 )
 
 type DiscoveryNotifee struct {

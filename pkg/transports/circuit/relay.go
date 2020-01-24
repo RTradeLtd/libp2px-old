@@ -16,8 +16,8 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 
-	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
+	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 
 	logging "github.com/ipfs/go-log"
 	ma "github.com/multiformats/go-multiaddr"

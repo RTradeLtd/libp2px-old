@@ -19,9 +19,9 @@ import (
 	relay "github.com/RTradeLtd/libp2px/p2p/host/relay"
 	routed "github.com/RTradeLtd/libp2px/p2p/host/routed"
 
-	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 	discovery "github.com/RTradeLtd/libp2px/pkg/discovery"
 	swarm "github.com/RTradeLtd/libp2px/pkg/swarm"
+	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 	tptu "github.com/RTradeLtd/libp2px/pkg/transports/upgrader"
 
 	filter "github.com/RTradeLtd/libp2px/pkg/utils/filter"

@@ -9,9 +9,9 @@ import (
 
 	"github.com/RTradeLtd/libp2px-core/peer"
 
+	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
 	ggio "github.com/gogo/protobuf/io"
 	proto "github.com/gogo/protobuf/proto"
-	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
 	ma "github.com/multiformats/go-multiaddr"
 )
 

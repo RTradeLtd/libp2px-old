@@ -6,7 +6,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/RTradeLtd/libp2px/pkg/buffer-pool"
+	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
 )
 
 type streamState int

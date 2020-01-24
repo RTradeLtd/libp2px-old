@@ -14,8 +14,8 @@ import (
 	"github.com/RTradeLtd/libp2px-core/protocol"
 	"go.uber.org/zap"
 
-	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 	lgbl "github.com/RTradeLtd/libp2px/pkg/loggables"
+	circuit "github.com/RTradeLtd/libp2px/pkg/transports/circuit"
 
 	ma "github.com/multiformats/go-multiaddr"
 )

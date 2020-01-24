@@ -7,10 +7,10 @@ import (
 	"sync"
 	"testing"
 
-	tetc "github.com/RTradeLtd/libp2px/pkg/testing/etc"
 	ci "github.com/RTradeLtd/libp2px-core/crypto"
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/test"
+	tetc "github.com/RTradeLtd/libp2px/pkg/testing/etc"
 
 	ma "github.com/multiformats/go-multiaddr"
 )
