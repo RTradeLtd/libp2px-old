@@ -28,7 +28,7 @@ One possible compatability issue is with secp256k1 keys being incompatible betwe
 
 ## Needs Investigation
 
-### TestStBackpressureStreamWrite And TestProtoDowngrade Failures
+### TestStBackpressureStreamWrite TestProtoDowngrade, And TestHostProtoPreference Failures
 
 Notice that in [this commit](https://github.com/RTradeLtd/libp2px/commit/b45de2ae197cb95aacb150c8a53490d81cacfdf7) the TravisCI builds passed. The important thing to take note of is that this commit uses the [IPFS ci helper scripts](https://github.com/ipfs/ci-helpers/blob/master/travis-ci/run-standard-tests.sh). However if you notice in [this commit](https://github.com/RTradeLtd/libp2px/commit/1e9958227c15fbfc446f356b4660a317b9e6efc9) when we switched to a different method of executing golang test tooling, we encounter build failures. I'm not yet sure why but this is repatable behavior. This needs investigation.
 
@@ -38,3 +38,8 @@ The names of all tests that fail when not using the ipfs ci helper script are li
 
 * `pkg` is where all the extra libp2p repositories are. For example things like `go-libp2p-loggables`, `go-libp2p-buffer-pool`, and all transports are here.
 * `p2p` is equivalent
+
+
+# License
+
+All original code is licensed under MIT+Apache, and we've included all the previous licenses. New code and modifications are licensed under3 AGPLv3
