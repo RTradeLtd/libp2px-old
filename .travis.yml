@@ -9,7 +9,6 @@ os:
 env:
   global:
   - GO111MODULE=on
-  - GOPRIVATE=github.com/RTradeLtd/*
 
 install:
   - go get honnef.co/go/tools/cmd/staticcheck
