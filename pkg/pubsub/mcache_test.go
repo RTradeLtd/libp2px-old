@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
+	pb "github.com/RTradeLtd/libp2px/pkg/pubsub/pb"
 )
 
 func TestMessageCache(t *testing.T) {

@@ -9,7 +9,7 @@ import (
 	"github.com/RTradeLtd/libp2px-core/network"
 	"github.com/RTradeLtd/libp2px-core/peer"
 
-	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
+	pb "github.com/RTradeLtd/libp2px/pkg/pubsub/pb"
 	ggio "github.com/gogo/protobuf/io"
 	proto "github.com/gogo/protobuf/proto"
 

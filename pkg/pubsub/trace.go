@@ -6,7 +6,7 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"github.com/RTradeLtd/libp2px-core/protocol"
 
-	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
+	pb "github.com/RTradeLtd/libp2px/pkg/pubsub/pb"
 )
 
 // EventTracer is a generic event tracer interface

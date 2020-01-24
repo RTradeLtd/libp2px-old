@@ -1,7 +1,6 @@
 module github.com/RTradeLtd/libp2px
 
 require (
-	github.com/RTradeLtd/libp2p-pubsub v0.0.0-20200124073043-e16c86c81fb7
 	github.com/RTradeLtd/libp2px-core v0.0.2
 	github.com/davidlazar/go-crypto v0.0.0-20190912175916-7055855a373f
 	github.com/gogo/protobuf v1.3.1

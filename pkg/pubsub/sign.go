@@ -3,7 +3,7 @@ package pubsub
 import (
 	"fmt"
 
-	pb "github.com/RTradeLtd/libp2p-pubsub/pb"
+	pb "github.com/RTradeLtd/libp2px/pkg/pubsub/pb"
 
 	"github.com/RTradeLtd/libp2px-core/crypto"
 	"github.com/RTradeLtd/libp2px-core/peer"
