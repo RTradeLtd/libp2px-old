@@ -1,8 +1,8 @@
 package pubsub
 
 import (
-	lru "github.com/hashicorp/golang-lru"
 	"github.com/RTradeLtd/libp2px-core/peer"
+	lru "github.com/hashicorp/golang-lru"
 )
 
 // Blacklist is an interface for peer blacklisting.

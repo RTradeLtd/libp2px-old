@@ -8,8 +8,8 @@ import (
 
 	"github.com/RTradeLtd/libp2px-core/pnet"
 
-	"github.com/davidlazar/go-crypto/salsa20"
 	pool "github.com/RTradeLtd/libp2px/pkg/buffer-pool"
+	"github.com/davidlazar/go-crypto/salsa20"
 )
 
 // we are using buffer pool as user needs their slice back
