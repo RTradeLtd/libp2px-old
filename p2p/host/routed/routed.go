@@ -13,12 +13,10 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peerstore"
 	"github.com/RTradeLtd/libp2px-core/protocol"
 	"go.uber.org/zap"
-
-	lgbl "github.com/RTradeLtd/libp2px/pkg/loggables"
-
+ 
 	ma "github.com/multiformats/go-multiaddr"
 )
-
+ 
 // AddressTTL is the expiry time for our addresses.
 // We expire them quickly.
 const AddressTTL = time.Second * 10
@@ -32,10 +30,14 @@ type RoutedHost struct {
 	logger *zap.Logger
 }
 
+// Routing is an interface that indicates we can find peers
 type Routing interface {
 	FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)
 }
 
+// Wrap is used to wrap a non-routed libp2px host, and leverage
+// the content routing system to find peers if we do not
+// alreayd know them
 func Wrap(h host.Host, r Routing, logger *zap.Logger) *RoutedHost {
 	return &RoutedHost{h, r, logger.Named("routedhost")}
 }
@@ -117,56 +119,58 @@ func (rh *RoutedHost) findPeerAddrs(ctx context.Context, id peer.ID) ([]ma.Multi
 
 	if pi.ID != id {
 		err = fmt.Errorf("routing failure: provided addrs for different peer")
-		logRoutingErrDifferentPeers(ctx, id, pi.ID, err)
 		return nil, err
 	}
 
 	return pi.Addrs, nil
 }
 
-func logRoutingErrDifferentPeers(ctx context.Context, wanted, got peer.ID, err error) {
-	lm := make(lgbl.DeferredMap)
-	lm["error"] = err
-	lm["wantedPeer"] = func() interface{} { return wanted.Pretty() }
-	lm["gotPeer"] = func() interface{} { return got.Pretty() }
-}
-
+// ID returns the ID of the routed host
 func (rh *RoutedHost) ID() peer.ID {
 	return rh.host.ID()
 }
 
+// Peerstore returns the routed host's underlying peerstore
 func (rh *RoutedHost) Peerstore() peerstore.Peerstore {
 	return rh.host.Peerstore()
 }
 
+// Addrs returns all multiaddresses of the routed host
 func (rh *RoutedHost) Addrs() []ma.Multiaddr {
 	return rh.host.Addrs()
 }
 
+// Network returns the network object of the routed host
 func (rh *RoutedHost) Network() network.Network {
 	return rh.host.Network()
 }
 
+// Mux returns the routed hosts's protocol muxer
 func (rh *RoutedHost) Mux() protocol.Switch {
 	return rh.host.Mux()
 }
 
+// EventBus returns the routed host's event bus
 func (rh *RoutedHost) EventBus() event.Bus {
 	return rh.host.EventBus()
 }
 
+// SetStreamHandler is used to add a supported protocol, and a handler for the protocol streams
 func (rh *RoutedHost) SetStreamHandler(pid protocol.ID, handler network.StreamHandler) {
 	rh.host.SetStreamHandler(pid, handler)
 }
 
+// SetStreamHandlerMatch is used to set a match func for protocol stream handlers
 func (rh *RoutedHost) SetStreamHandlerMatch(pid protocol.ID, m func(string) bool, handler network.StreamHandler) {
 	rh.host.SetStreamHandlerMatch(pid, m, handler)
 }
 
+// RemoveStreamHandler is used to remove all stream handlers for the given protocol
 func (rh *RoutedHost) RemoveStreamHandler(pid protocol.ID) {
 	rh.host.RemoveStreamHandler(pid)
 }
 
+// NewStream is used to create a new stream
 func (rh *RoutedHost) NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error) {
 	// Ensure we have a connection, with peer addresses resolved by the routing system (#207)
 	// It is not sufficient to let the underlying host connect, it will most likely not have
@@ -181,10 +185,14 @@ func (rh *RoutedHost) NewStream(ctx context.Context, p peer.ID, pids ...protocol
 
 	return rh.host.NewStream(ctx, p, pids...)
 }
+
+// Close returns the routed host's libp2px host object
 func (rh *RoutedHost) Close() error {
 	// no need to close IpfsRouting. we dont own it.
 	return rh.host.Close()
 }
+
+// ConnManager returns the underlying connection manager
 func (rh *RoutedHost) ConnManager() connmgr.ConnManager {
 	return rh.host.ConnManager()
 }

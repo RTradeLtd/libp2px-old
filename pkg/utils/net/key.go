@@ -13,11 +13,8 @@ import (
 
 	tnet "github.com/RTradeLtd/libp2px/pkg/testing/net"
 
-	logging "github.com/ipfs/go-log"
 	ma "github.com/multiformats/go-multiaddr"
 )
-
-var log = logging.Logger("boguskey")
 
 // TestBogusPrivateKey is a key used for testing (to avoid expensive keygen)
 type TestBogusPrivateKey []byte
@@ -25,17 +22,18 @@ type TestBogusPrivateKey []byte
 // TestBogusPublicKey is a key used for testing (to avoid expensive keygen)
 type TestBogusPublicKey []byte
 
+// Verify is used to verify the data
 func (pk TestBogusPublicKey) Verify(data, sig []byte) (bool, error) {
-	log.Errorf("TestBogusPublicKey.Verify -- this better be a test!")
 	return bytes.Equal(data, reverse(sig)), nil
 }
 
+// Bytes returns the key bytes
 func (pk TestBogusPublicKey) Bytes() ([]byte, error) {
 	return []byte(pk), nil
 }
 
+// Encrypt encrypts the contents
 func (pk TestBogusPublicKey) Encrypt(b []byte) ([]byte, error) {
-	log.Errorf("TestBogusPublicKey.Encrypt -- this better be a test!")
 	return reverse(b), nil
 }
 
@@ -55,24 +53,27 @@ func (pk TestBogusPublicKey) Type() pb.KeyType {
 	return pb.KeyType_RSA
 }
 
+// GenSecret returns a secret
 func (sk TestBogusPrivateKey) GenSecret() []byte {
 	return []byte(sk)
 }
 
+// Sign signs the message
 func (sk TestBogusPrivateKey) Sign(message []byte) ([]byte, error) {
-	log.Errorf("TestBogusPrivateKey.Sign -- this better be a test!")
 	return reverse(message), nil
 }
 
+// GetPublic returns the public key
 func (sk TestBogusPrivateKey) GetPublic() ic.PubKey {
 	return TestBogusPublicKey(sk)
 }
 
+// Decrypt decrypts the contents
 func (sk TestBogusPrivateKey) Decrypt(b []byte) ([]byte, error) {
-	log.Errorf("TestBogusPrivateKey.Decrypt -- this better be a test!")
 	return reverse(b), nil
 }
 
+// Bytes returns the bytes of the key
 func (sk TestBogusPrivateKey) Bytes() ([]byte, error) {
 	return []byte(sk), nil
 }
@@ -89,10 +90,11 @@ func (sk TestBogusPrivateKey) Raw() ([]byte, error) {
 }
 
 // Type returns the protobof key type.
-func (pk TestBogusPrivateKey) Type() pb.KeyType {
+func (sk TestBogusPrivateKey) Type() pb.KeyType {
 	return pb.KeyType_RSA
 }
 
+// RandTestBogusPrivateKey returns a new test private key
 func RandTestBogusPrivateKey() (TestBogusPrivateKey, error) {
 	k := make([]byte, 5)
 	if _, err := io.ReadFull(rand.Reader, k); err != nil {
@@ -101,11 +103,13 @@ func RandTestBogusPrivateKey() (TestBogusPrivateKey, error) {
 	return TestBogusPrivateKey(k), nil
 }
 
+// RandTestBogusPublicKey returns a new test public key
 func RandTestBogusPublicKey() (TestBogusPublicKey, error) {
 	k, err := RandTestBogusPrivateKey()
 	return TestBogusPublicKey(k), err
 }
 
+// RandTestBogusPrivateKeyOrFatal errors out if we cant generate a private key
 func RandTestBogusPrivateKeyOrFatal(t *testing.T) TestBogusPrivateKey {
 	k, err := RandTestBogusPrivateKey()
 	if err != nil {
@@ -114,6 +118,7 @@ func RandTestBogusPrivateKeyOrFatal(t *testing.T) TestBogusPrivateKey {
 	return k
 }
 
+// RandTestBogusPublicKeyOrFatal errors out if we cant generate a public key
 func RandTestBogusPublicKeyOrFatal(t *testing.T) TestBogusPublicKey {
 	k, err := RandTestBogusPublicKey()
 	if err != nil {
@@ -122,6 +127,7 @@ func RandTestBogusPublicKeyOrFatal(t *testing.T) TestBogusPublicKey {
 	return k
 }
 
+// RandTestBogusIdentity returns a new test identity
 func RandTestBogusIdentity() (tnet.Identity, error) {
 	k, err := RandTestBogusPrivateKey()
 	if err != nil {
@@ -140,6 +146,7 @@ func RandTestBogusIdentity() (tnet.Identity, error) {
 	}, nil
 }
 
+// RandTestBogusIdentityOrFatal errors out if we cant generate a new identity
 func RandTestBogusIdentityOrFatal(t *testing.T) tnet.Identity {
 	k, err := RandTestBogusIdentity()
 	if err != nil {

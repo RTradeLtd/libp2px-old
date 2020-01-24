@@ -65,7 +65,6 @@ func (u *Upgrader) UpgradeInbound(ctx context.Context, t transport.Transport, ma
 
 func (u *Upgrader) upgrade(ctx context.Context, t transport.Transport, maconn manet.Conn, p peer.ID) (transport.CapableConn, error) {
 	if u.Filters != nil && u.Filters.AddrBlocked(maconn.RemoteMultiaddr()) {
-		log.Debugf("blocked connection from %s", maconn.RemoteMultiaddr())
 		maconn.Close()
 		return nil, fmt.Errorf("blocked connection from %s", maconn.RemoteMultiaddr())
 	}
@@ -79,8 +78,6 @@ func (u *Upgrader) upgrade(ctx context.Context, t transport.Transport, maconn ma
 		}
 		conn = pconn
 	} else if pnet.ForcePrivateNetwork {
-		log.Error("tried to dial with no Private Network Protector but usage" +
-			" of Private Networks is forced by the enviroment")
 		return nil, pnet.ErrNotInPrivateNetwork
 	}
 	sconn, err := u.setupSecurity(ctx, conn, p)

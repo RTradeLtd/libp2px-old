@@ -8,15 +8,12 @@ import (
 	"time"
 
 	nat "github.com/RTradeLtd/libp2px/pkg/nat"
-	logging "github.com/ipfs/go-log"
 )
 
 var (
 	// ErrNoMapping signals no mapping exists for an address
 	ErrNoMapping = errors.New("mapping not established")
 )
-
-var log = logging.Logger("nat")
 
 // MappingDuration is a default port mapping duration.
 // Port mappings are renewed every (MappingDuration / 3)
@@ -48,14 +45,6 @@ func DiscoverNAT(ctx context.Context) (*NAT, error) {
 
 	if err != nil {
 		return nil, err
-	}
-
-	// Log the device addr.
-	addr, err := natInstance.GetDeviceAddress()
-	if err != nil {
-		log.Debug("DiscoverGateway address error:", err)
-	} else {
-		log.Debug("DiscoverGateway address:", addr)
 	}
 
 	return newNAT(ctx, natInstance), nil
@@ -169,7 +158,6 @@ func (nat *NAT) NewMapping(protocol string, port int) (Mapping, error) {
 func (nat *NAT) establishMapping(m *mapping) {
 	oldport := m.ExternalPort()
 
-	log.Debugf("Attempting port map: %s/%d", m.Protocol(), m.InternalPort())
 	comment := "libp2p"
 
 	nat.natmu.Lock()
@@ -182,16 +170,12 @@ func (nat *NAT) establishMapping(m *mapping) {
 
 	if err != nil || newport == 0 {
 		m.setExternalPort(0) // clear mapping
-		// TODO:
-		log.Warnf("failed to establish port mapping: %s", err)
 		// we do not close if the mapping failed,
 		// because it may work again next time.
 		return
 	}
 
 	m.setExternalPort(newport)
-	log.Debugf("NAT Mapping: %d --> %d (%s)", m.ExternalPort(), m.InternalPort(), m.Protocol())
 	if oldport != 0 && newport != oldport {
-		log.Debugf("failed to renew same port mapping: ch %d -> %d", oldport, newport)
 	}
 }

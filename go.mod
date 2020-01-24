@@ -1,17 +1,14 @@
 module github.com/RTradeLtd/libp2px
 
 require (
-	gitea.com/lunny/log v0.0.0-20190322053110-01b5df579c4e
 	github.com/RTradeLtd/libp2px-core v0.0.1
 	github.com/gogo/protobuf v1.3.1
-	github.com/google/uuid v1.1.1
 	github.com/gorilla/websocket v1.4.1
 	github.com/hashicorp/golang-lru v0.5.3
 	github.com/huin/goupnp v1.0.0
 	github.com/ipfs/go-cid v0.0.4
 	github.com/ipfs/go-detect-race v0.0.1
 	github.com/ipfs/go-ipfs-util v0.0.1
-	github.com/ipfs/go-log v1.0.0
 	github.com/jackpal/gateway v1.0.5
 	github.com/jackpal/go-nat-pmp v1.0.2
 	github.com/jbenet/go-temp-err-catcher v0.0.0-20150120210811-aac704a3f4f2

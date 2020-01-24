@@ -3,12 +3,9 @@ package addrutil
 import (
 	"fmt"
 
-	logging "github.com/ipfs/go-log"
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr-net"
 )
-
-var log = logging.Logger("addrutil")
 
 // FilterAddrs is a filter that removes certain addresses, according to the given filters.
 // If all filters return true, the address is kept.
@@ -60,7 +57,6 @@ func ResolveUnspecifiedAddress(resolve ma.Multiaddr, ifaceAddrs []ma.Multiaddr) 
 		split[0] = ia
 		joined := ma.Join(split...)
 		out = append(out, joined)
-		log.Debug("adding resolved addr:", resolve, joined, out)
 	}
 	if len(out) < 1 {
 		return nil, fmt.Errorf("failed to resolve: %s", resolve)
@@ -97,7 +93,6 @@ func ResolveUnspecifiedAddresses(unspecAddrs, ifaceAddrs []ma.Multiaddr) ([]ma.M
 		return nil, fmt.Errorf("failed to specify addrs: %s", unspecAddrs)
 	}
 
-	log.Debug("ResolveUnspecifiedAddresses:", unspecAddrs, ifaceAddrs, outputAddrs)
 	return outputAddrs, nil
 }
 
@@ -109,7 +104,6 @@ func InterfaceAddresses() ([]ma.Multiaddr, error) {
 	if err != nil {
 		return nil, err
 	}
-	log.Debug("InterfaceAddresses: from manet:", maddrs)
 
 	var out []ma.Multiaddr
 	for _, a := range maddrs {
@@ -121,7 +115,6 @@ func InterfaceAddresses() ([]ma.Multiaddr, error) {
 		out = append(out, a)
 	}
 
-	log.Debug("InterfaceAddresses: usable:", out)
 	return out, nil
 }
 
@@ -175,7 +168,6 @@ func CheckNATWarning(observed, expected ma.Multiaddr, listen []ma.Multiaddr) {
 	}
 
 	if !AddrInList(observed, listen) { // probably a nat
-		log.Warnf(natWarning, observed, listen)
 	}
 }
 

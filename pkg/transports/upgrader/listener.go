@@ -7,12 +7,9 @@ import (
 
 	"github.com/RTradeLtd/libp2px-core/transport"
 
-	logging "github.com/ipfs/go-log"
 	tec "github.com/jbenet/go-temp-err-catcher"
 	manet "github.com/multiformats/go-multiaddr-net"
 )
-
-var log = logging.Logger("stream-upgrader")
 
 type listener struct {
 	manet.Listener
@@ -73,7 +70,6 @@ func (l *listener) handleIncoming() {
 		if err != nil {
 			// Note: function may pause the accept loop.
 			if catcher.IsTemporary(err) {
-				log.Infof("temporary accept error: %s", err)
 				continue
 			}
 			l.err = err
@@ -83,11 +79,6 @@ func (l *listener) handleIncoming() {
 		// The go routine below calls Release when the context is
 		// canceled so there's no need to wait on it here.
 		l.threshold.Wait()
-
-		log.Debugf("listener %s got connection: %s <---> %s",
-			l,
-			maconn.LocalMultiaddr(),
-			maconn.RemoteMultiaddr())
 
 		wg.Add(1)
 		go func() {
@@ -100,14 +91,8 @@ func (l *listener) handleIncoming() {
 			if err != nil {
 				// Don't bother bubbling this up. We just failed
 				// to completely negotiate the connection.
-				log.Debugf("accept upgrade error: %s (%s <--> %s)",
-					err,
-					maconn.LocalMultiaddr(),
-					maconn.RemoteMultiaddr())
 				return
 			}
-
-			log.Debugf("listener %s accepted connection: %s", l, conn)
 
 			// This records the fact that the connection has been
 			// setup and is waiting to be accepted. This call
@@ -122,7 +107,6 @@ func (l *listener) handleIncoming() {
 			case <-ctx.Done():
 				if l.ctx.Err() == nil {
 					// Listener *not* closed but the accept timeout expired.
-					log.Warnf("listener dropped connection due to slow accept")
 				}
 				// Wait on the context with a timeout. This way,
 				// if we stop accepting connections for some reason,
