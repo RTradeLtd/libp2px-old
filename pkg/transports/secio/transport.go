@@ -14,12 +14,13 @@ import (
 // ID is secio's protocol ID (used when negotiating with multistream)
 const ID = "/secio/1.0.0"
 
-// SessionGenerator constructs secure communication sessions for a peer.
+// Transport constructs secure communication sessions for a peer.
 type Transport struct {
 	LocalID    peer.ID
 	PrivateKey ci.PrivKey
 }
 
+// New returns a new SecIO transport
 func New(sk ci.PrivKey) (*Transport, error) {
 	id, err := peer.IDFromPrivateKey(sk)
 	if err != nil {
@@ -33,21 +34,27 @@ func New(sk ci.PrivKey) (*Transport, error) {
 
 var _ sec.SecureTransport = (*Transport)(nil)
 
+// SecureInbound secures the inbound connection
 func (sg *Transport) SecureInbound(ctx context.Context, insecure net.Conn) (sec.SecureConn, error) {
 	return newSecureSession(ctx, sg.LocalID, sg.PrivateKey, insecure, "")
 }
+
+// SecureOutbound secures the outbound connection
 func (sg *Transport) SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error) {
 	return newSecureSession(ctx, sg.LocalID, sg.PrivateKey, insecure, p)
 }
 
+// SetReadDeadline sets the read deadline
 func (s *secureSession) SetReadDeadline(t time.Time) error {
 	return s.insecure.SetReadDeadline(t)
 }
 
+// SetWriteDeadline sets the write deadline
 func (s *secureSession) SetWriteDeadline(t time.Time) error {
 	return s.insecure.SetWriteDeadline(t)
 }
 
+// SetDeadlien sets the deadline
 func (s *secureSession) SetDeadline(t time.Time) error {
 	return s.insecure.SetDeadline(t)
 }

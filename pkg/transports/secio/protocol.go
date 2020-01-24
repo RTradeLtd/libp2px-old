@@ -16,11 +16,8 @@ import (
 	msgio "github.com/RTradeLtd/libp2px/pkg/msgio"
 	pb "github.com/RTradeLtd/libp2px/pkg/transports/secio/pb"
 	proto "github.com/gogo/protobuf/proto"
-	logging "github.com/ipfs/go-log"
 	mh "github.com/multiformats/go-multihash"
 )
-
-var log = logging.Logger("secio")
 
 // ErrUnsupportedKeyType is returned when a private key cast/type switch fails.
 var ErrUnsupportedKeyType = errors.New("unsupported key type")
@@ -208,11 +205,8 @@ func (s *secureSession) runHandshakeSync() error {
 	default:
 		// Peer mismatch. Bail.
 		s.insecure.Close()
-		log.Debugf("expected peer %s, got peer %s", s.remotePeer, actualRemotePeer)
 		return ErrWrongPeer
 	}
-
-	log.Debugf("1.1 Identify: %s Remote Peer Identified as %s", s.localPeer, s.remotePeer)
 
 	// =============================================================================
 	// step 1.2 Selection -- select/agree on best encryption parameters

@@ -70,7 +70,6 @@ func (n *network) getDialer(network string) dialer {
 
 func (n *network) makeDialer(network string) dialer {
 	if !reuseport.Available() {
-		log.Debug("reuseport not available")
 		return &net.Dialer{}
 	}
 

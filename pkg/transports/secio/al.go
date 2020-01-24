@@ -19,16 +19,19 @@ import (
 // SupportedExchanges is the list of supported ECDH curves
 var SupportedExchanges = DefaultSupportedExchanges
 
+// DefaultSupportedExchanges are the default support key exchange algorithms
 const DefaultSupportedExchanges = "P-256,P-384,P-521"
 
 // SupportedCiphers is the list of supported Ciphers
 var SupportedCiphers = DefaultSupportedCiphers
 
+// DefaultSupportedCiphers are th edefault ciphers we support
 const DefaultSupportedCiphers = "AES-256,AES-128"
 
 // SupportedHashes is the list of supported Hashes
 var SupportedHashes = DefaultSupportedHashes
 
+// DefaultSupportedHashes are the default supported hashes
 const DefaultSupportedHashes = "SHA256,SHA512"
 
 // HMAC carries a hash and its size
