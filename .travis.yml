@@ -1,7 +1,7 @@
 language: go
 
 go:
-- 1.13.x
+  - 1.13.x
 
 os:
   - linux
@@ -10,23 +10,27 @@ env:
   global:
   - GO111MODULE=on
   - GOPRIVATE=github.com/RTradeLtd/*
-  - BUILD_DEPTYPE=gomod
-  - GOTFLAGS="-race"
-  
+
 install:
-- go mod download
+  - go get honnef.co/go/tools/cmd/staticcheck
+  - go get -u golang.org/x/lint/golint
+  - go mod download
 
 before_script:
-- go vet ./...
-- go build ./...
-- go test -run xxxx ./...
+  - go vet ./...
+  - go build ./...
+  - go test -run xxxx ./...
 
 script:
-- bash <(curl -s https://raw.githubusercontent.com/ipfs/ci-helpers/master/travis-ci/run-standard-tests.sh)
-#- go test -race -short -coverprofile=coverage.txt ./...
+  - diff -u <(echo -n) <(gofmt -d -s `find . -type f -name '*.go' -not -path "./vendor/*"`)
+  # currently the codebase fails this heavily, so we wont do it now
+  # - diff -u <(echo -n) <(golint `go list ./... | grep -v /vendor/`)
+  - make verifiers
+  - go test -race -short -coverprofile=coverage.txt ./...
+  - go test -race -short -tags=openssl -coverprofile=coverage.txt ./...
 
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
 
 cache:
   directories:
