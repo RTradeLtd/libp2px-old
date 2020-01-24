@@ -56,9 +56,8 @@ func incrementTag(v int) int {
 func decrementTag(v int) int {
 	if v > 0 {
 		return v - 1
-	} else {
-		return v
 	}
+	return v
 }
 
 type delimitedReader struct {

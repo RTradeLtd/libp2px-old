@@ -9,31 +9,31 @@ import (
 	manet "github.com/multiformats/go-multiaddr-net"
 )
 
-var _ manet.Listener = (*RelayListener)(nil)
+var _ manet.Listener = (*Listener)(nil)
 
-type RelayListener Relay
+// Listener is ???
+type Listener Relay
 
-func (l *RelayListener) Relay() *Relay {
+// Relay returns the underlying relay
+func (l *Listener) Relay() *Relay {
 	return (*Relay)(l)
 }
 
-func (r *Relay) Listener() *RelayListener {
+// Listener returns the listener
+func (r *Relay) Listener() *Listener {
 	// TODO: Only allow one!
-	return (*RelayListener)(r)
+	return (*Listener)(r)
 }
 
-func (l *RelayListener) Accept() (manet.Conn, error) {
+// Accept is used to accept ??
+func (l *Listener) Accept() (manet.Conn, error) {
 	select {
 	case c := <-l.incoming:
 		err := l.Relay().writeResponse(c.stream, pb.CircuitRelay_SUCCESS)
 		if err != nil {
-			log.Debugf("error writing relay response: %s", err.Error())
 			c.stream.Reset()
 			return nil, err
 		}
-
-		// TODO: Pretty print.
-		log.Infof("accepted relay connection: %q", c)
 
 		c.tagHop()
 		return c, nil
@@ -42,18 +42,21 @@ func (l *RelayListener) Accept() (manet.Conn, error) {
 	}
 }
 
-func (l *RelayListener) Addr() net.Addr {
+// Addr returns the net addr
+func (l *Listener) Addr() net.Addr {
 	return &NetAddr{
 		Relay:  "any",
 		Remote: "any",
 	}
 }
 
-func (l *RelayListener) Multiaddr() ma.Multiaddr {
+// Multiaddr returns the multiaddr of ?
+func (l *Listener) Multiaddr() ma.Multiaddr {
 	return circuitAddr
 }
 
-func (l *RelayListener) Close() error {
+// Close is a noop closer
+func (l *Listener) Close() error {
 	// TODO: noop?
 	return nil
 }

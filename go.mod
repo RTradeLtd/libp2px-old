@@ -1,6 +1,7 @@
 module github.com/RTradeLtd/libp2px
 
 require (
+	gitea.com/lunny/log v0.0.0-20190322053110-01b5df579c4e
 	github.com/RTradeLtd/libp2px-core v0.0.1
 	github.com/gogo/protobuf v1.3.1
 	github.com/google/uuid v1.1.1

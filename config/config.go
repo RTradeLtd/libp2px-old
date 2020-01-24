@@ -35,6 +35,7 @@ type AddrsFactory = bhost.AddrsFactory
 // NATManagerC is a NATManager constructor.
 type NATManagerC func(context.Context, network.Network) bhost.NATManager
 
+// RoutingC is ???
 type RoutingC func(host.Host) (routing.PeerRouting, error)
 
 // Config describes a set of settings for a libp2p node
@@ -58,7 +59,7 @@ type Config struct {
 
 	RelayCustom bool
 	Relay       bool
-	RelayOpts   []circuit.RelayOpt
+	RelayOpts   []circuit.Opt
 
 	ListenAddrs  []ma.Multiaddr
 	AddrsFactory bhost.AddrsFactory

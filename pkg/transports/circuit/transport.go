@@ -11,27 +11,31 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 )
 
-// Deprecated: use ma.P_CIRCUIT
-const P_CIRCUIT = ma.P_CIRCUIT
+// PCIRCUIT is deprecated
+const PCIRCUIT = ma.P_CIRCUIT
 
-// Deprecated: use ma.ProtocolWithCode(P_CIRCUIT)
-var Protocol = ma.ProtocolWithCode(P_CIRCUIT)
+// Protocol is Deprecated: use ma.ProtocolWithCode(P_CIRCUIT)
+var Protocol = ma.ProtocolWithCode(PCIRCUIT)
 
 var circuitAddr = ma.Cast(Protocol.VCode)
 
-var _ transport.Transport = (*RelayTransport)(nil)
+var _ transport.Transport = (*Transport)(nil)
 
-type RelayTransport Relay
+// Transport ??
+type Transport Relay
 
-func (t *RelayTransport) Relay() *Relay {
+// Relay does ?
+func (t *Transport) Relay() *Relay {
 	return (*Relay)(t)
 }
 
-func (r *Relay) Transport() *RelayTransport {
-	return (*RelayTransport)(r)
+// Transport does ??
+func (r *Relay) Transport() *Transport {
+	return (*Transport)(r)
 }
 
-func (t *RelayTransport) Listen(laddr ma.Multiaddr) (transport.Listener, error) {
+// Listen does ??
+func (t *Transport) Listen(laddr ma.Multiaddr) (transport.Listener, error) {
 	// TODO: Ensure we have a connection to the relay, if specified. Also,
 	// make sure the multiaddr makes sense.
 	if !t.Relay().Matches(laddr) {
@@ -40,26 +44,29 @@ func (t *RelayTransport) Listen(laddr ma.Multiaddr) (transport.Listener, error) 
 	return t.upgrader.UpgradeListener(t, t.Relay().Listener()), nil
 }
 
-func (t *RelayTransport) CanDial(raddr ma.Multiaddr) bool {
+// CanDial indicates if we can dial th eper
+func (t *Transport) CanDial(raddr ma.Multiaddr) bool {
 	return t.Relay().Matches(raddr)
 }
 
-func (t *RelayTransport) Proxy() bool {
+// Proxy returns if the transport is a proxy
+func (t *Transport) Proxy() bool {
 	return true
 }
 
-func (t *RelayTransport) Protocols() []int {
-	return []int{P_CIRCUIT}
+// Protocols returns the protocols of this transport
+func (t *Transport) Protocols() []int {
+	return []int{PCIRCUIT}
 }
 
 // AddRelayTransport constructs a relay and adds it as a transport to the host network.
-func AddRelayTransport(ctx context.Context, h host.Host, upgrader *tptu.Upgrader, opts ...RelayOpt) error {
-	n, ok := h.Network().(transport.TransportNetwork)
+func AddRelayTransport(ctx context.Context, h host.Host, upgrader *tptu.Upgrader, opts ...Opt) error {
+	_, ok := h.Network().(transport.TransportNetwork)
 	if !ok {
 		return fmt.Errorf("%v is not a transport network", h.Network())
 	}
 
-	r, err := NewRelay(ctx, h, upgrader, opts...)
+	_, err := NewRelay(ctx, h, upgrader, opts...)
 	if err != nil {
 		return err
 	}
@@ -67,10 +74,5 @@ func AddRelayTransport(ctx context.Context, h host.Host, upgrader *tptu.Upgrader
 	// There's no nice way to handle these errors as we have no way to tear
 	// down the relay.
 	// TODO
-	if err := n.AddTransport(r.Transport()); err != nil {
-		log.Error("failed to add relay transport:", err)
-	} else if err := n.Listen(r.Listener().Multiaddr()); err != nil {
-		log.Error("failed to listen on relay transport:", err)
-	}
 	return nil
 }

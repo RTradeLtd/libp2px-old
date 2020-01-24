@@ -9,24 +9,34 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 )
 
-var _ inet.Notifiee = (*RelayNotifiee)(nil)
+var _ inet.Notifiee = (*Notifiee)(nil)
 
-type RelayNotifiee Relay
+// Notifiee does ??
+type Notifiee Relay
 
 func (r *Relay) notifiee() inet.Notifiee {
-	return (*RelayNotifiee)(r)
+	return (*Notifiee)(r)
 }
 
-func (n *RelayNotifiee) Relay() *Relay {
+// Relay ??
+func (n *Notifiee) Relay() *Relay {
 	return (*Relay)(n)
 }
 
-func (n *RelayNotifiee) Listen(net inet.Network, a ma.Multiaddr)      {}
-func (n *RelayNotifiee) ListenClose(net inet.Network, a ma.Multiaddr) {}
-func (n *RelayNotifiee) OpenedStream(net inet.Network, s inet.Stream) {}
-func (n *RelayNotifiee) ClosedStream(net inet.Network, s inet.Stream) {}
+// Listen satisfies the network.Notifiee interface
+func (n *Notifiee) Listen(net inet.Network, a ma.Multiaddr) {}
 
-func (n *RelayNotifiee) Connected(s inet.Network, c inet.Conn) {
+// ListenClose satisfies the network.Notifiee interface
+func (n *Notifiee) ListenClose(net inet.Network, a ma.Multiaddr) {}
+
+// OpenedStream satisfies the network.Notifiee interface
+func (n *Notifiee) OpenedStream(net inet.Network, s inet.Stream) {}
+
+// ClosedStream satisfies the network.Notifiee interface
+func (n *Notifiee) ClosedStream(net inet.Network, s inet.Stream) {}
+
+// Connected satisfies the network.Notifiee interface
+func (n *Notifiee) Connected(s inet.Network, c inet.Conn) {
 	if n.Relay().Matches(c.RemoteMultiaddr()) {
 		return
 	}
@@ -37,12 +47,10 @@ func (n *RelayNotifiee) Connected(s inet.Network, c inet.Conn) {
 
 		canhop, err := n.Relay().CanHop(ctx, id)
 		if err != nil {
-			log.Debugf("Error testing relay hop: %s", err.Error())
 			return
 		}
 
 		if canhop {
-			log.Debugf("Discovered hop relay %s", id.Pretty())
 			n.mx.Lock()
 			n.relays[id] = struct{}{}
 			n.mx.Unlock()
@@ -51,4 +59,5 @@ func (n *RelayNotifiee) Connected(s inet.Network, c inet.Conn) {
 	}(c.RemotePeer())
 }
 
-func (n *RelayNotifiee) Disconnected(s inet.Network, c inet.Conn) {}
+// Disconnected satisfies the network.Notifiee interface
+func (n *Notifiee) Disconnected(s inet.Network, c inet.Conn) {}

@@ -209,7 +209,7 @@ func AddrsFactory(factory config.AddrsFactory) Option {
 // _through_ relays when requested by the remote peer. (default: enabled)
 //
 // To _act_ as a relay, pass the circuit.OptHop option.
-func EnableRelay(options ...circuit.RelayOpt) Option {
+func EnableRelay(options ...circuit.Opt) Option {
 	return func(cfg *Config) error {
 		cfg.RelayCustom = true
 		cfg.Relay = true

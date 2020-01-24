@@ -10,19 +10,21 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 )
 
-func (d *RelayTransport) Dial(ctx context.Context, a ma.Multiaddr, p peer.ID) (transport.CapableConn, error) {
-	c, err := d.Relay().Dial(ctx, a, p)
+// Dial is used to dial the peer
+func (t *Transport) Dial(ctx context.Context, a ma.Multiaddr, p peer.ID) (transport.CapableConn, error) {
+	c, err := t.Relay().Dial(ctx, a, p)
 	if err != nil {
 		return nil, err
 	}
 	c.tagHop()
-	return d.upgrader.UpgradeOutbound(ctx, d, c, p)
+	return t.upgrader.UpgradeOutbound(ctx, t, c, p)
 }
 
+// Dial is used to dial the peer
 func (r *Relay) Dial(ctx context.Context, a ma.Multiaddr, p peer.ID) (*Conn, error) {
 	// split /a/p2p-circuit/b into (/a, /p2p-circuit/b)
 	relayaddr, destaddr := ma.SplitFunc(a, func(c ma.Component) bool {
-		return c.Protocol().Code == P_CIRCUIT
+		return c.Protocol().Code == PCIRCUIT
 	})
 
 	// If the address contained no /p2p-circuit part, the second part is nil.
@@ -78,8 +80,6 @@ func (r *Relay) tryDialRelays(ctx context.Context, dinfo peer.AddrInfo) (*Conn, 
 		if err == nil {
 			return c, nil
 		}
-
-		log.Debugf("error opening relay connection through %s: %s", dinfo.ID, err.Error())
 	}
 
 	return nil, fmt.Errorf("failed to dial through %d known relay hosts", len(relays))
