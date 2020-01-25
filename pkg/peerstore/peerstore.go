@@ -24,14 +24,15 @@ type peerstore struct {
 
 // NewPeerstore creates a data structure that stores peer data, backed by the
 // supplied implementations of KeyBook, AddrBook and PeerMetadata.
-func NewPeerstore(ctx context.Context, cancel context.CancelFunc, kb pstore.KeyBook, ab pstore.AddrBook, pb pstore.ProtoBook, md pstore.PeerMetadata) pstore.Peerstore {
+func NewPeerstore(ctx context.Context, kb pstore.KeyBook, ab pstore.AddrBook, pb pstore.ProtoBook, md pstore.PeerMetadata) pstore.Peerstore {
+	cctx, cancel := context.WithCancel(ctx)
 	return &peerstore{
 		KeyBook:      kb,
 		AddrBook:     ab,
 		ProtoBook:    pb,
 		PeerMetadata: md,
 		Metrics:      NewMetrics(),
-		ctx:          ctx,
+		ctx:          cctx,
 		cancel:       cancel,
 	}
 }

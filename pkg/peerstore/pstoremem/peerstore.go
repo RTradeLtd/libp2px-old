@@ -9,11 +9,10 @@ import (
 
 // NewPeerstore creates an in-memory threadsafe collection of peers.
 func NewPeerstore(ctx context.Context) pi.Peerstore {
-	cctx, cancel := context.WithCancel(ctx)
 	return pstore.NewPeerstore(
-		cctx, cancel,
+		ctx,
 		NewKeyBook(),
-		NewAddrBook(cctx),
+		NewAddrBook(ctx),
 		NewProtoBook(),
 		NewPeerMetadata())
 }

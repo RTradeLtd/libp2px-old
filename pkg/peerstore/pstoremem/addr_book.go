@@ -52,7 +52,7 @@ var _ pstore.AddrBook = (*memoryAddrBook)(nil)
 
 // NewAddrBook returns a new in-memory addrbook
 func NewAddrBook(ctx context.Context) pstore.AddrBook {
-	cctx, cancel := context.WithCancel(context.Background())
+	cctx, cancel := context.WithCancel(ctx)
 
 	ab := &memoryAddrBook{
 		segments: func() (ret addrSegments) {
