@@ -94,7 +94,7 @@ type Swarm struct {
 	logger   *zap.Logger
 }
 
-// NewSwarm constructs a Swarm
+// NewSwarm constructs a Swarm, and becomes responsible for shutting down the corresponding peerstore
 func NewSwarm(ctx context.Context, logger *zap.Logger, local peer.ID, peers peerstore.Peerstore, bwc metrics.Reporter) *Swarm {
 	s := &Swarm{
 		local:   local,

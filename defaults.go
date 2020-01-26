@@ -3,6 +3,7 @@ package libp2p
 // This file contains all the default configuration options.
 
 import (
+	"context"
 	"crypto/rand"
 
 	crypto "github.com/RTradeLtd/libp2px-core/crypto"
@@ -41,7 +42,7 @@ var DefaultTransports = ChainOptions(
 
 // DefaultPeerstore configures libp2p to use the default peerstore.
 var DefaultPeerstore Option = func(cfg *Config) error {
-	return cfg.Apply(Peerstore(pstoremem.NewPeerstore()))
+	return cfg.Apply(Peerstore(pstoremem.NewPeerstore(context.Background())))
 }
 
 // RandomIdentity generates a random identity (default behaviour)
