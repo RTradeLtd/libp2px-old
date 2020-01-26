@@ -69,7 +69,7 @@ func GenSwarm(t *testing.T, ctx context.Context, opts ...Option) (*swarm.Swarm, 
 
 	p := tnet.RandPeerNetParamsOrFatal(t)
 
-	ps := pstoremem.NewPeerstore()
+	ps := pstoremem.NewPeerstore(ctx)
 	ps.AddPubKey(p.ID, p.PubKey)
 	ps.AddPrivKey(p.ID, p.PrivKey)
 	s := swarm.NewSwarm(ctx, zaptest.NewLogger(t), p.ID, ps, metrics.NewBandwidthCounter())

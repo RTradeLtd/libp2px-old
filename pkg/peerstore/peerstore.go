@@ -1,6 +1,7 @@
 package peerstore
 
 import (
+	"context"
 	"fmt"
 	"io"
 
@@ -17,21 +18,27 @@ type peerstore struct {
 	pstore.AddrBook
 	pstore.ProtoBook
 	pstore.PeerMetadata
+	ctx    context.Context
+	cancel context.CancelFunc
 }
 
 // NewPeerstore creates a data structure that stores peer data, backed by the
 // supplied implementations of KeyBook, AddrBook and PeerMetadata.
-func NewPeerstore(kb pstore.KeyBook, ab pstore.AddrBook, pb pstore.ProtoBook, md pstore.PeerMetadata) pstore.Peerstore {
+func NewPeerstore(ctx context.Context, kb pstore.KeyBook, ab pstore.AddrBook, pb pstore.ProtoBook, md pstore.PeerMetadata) pstore.Peerstore {
+	cctx, cancel := context.WithCancel(ctx)
 	return &peerstore{
 		KeyBook:      kb,
 		AddrBook:     ab,
 		ProtoBook:    pb,
 		PeerMetadata: md,
 		Metrics:      NewMetrics(),
+		ctx:          cctx,
+		cancel:       cancel,
 	}
 }
 
 func (ps *peerstore) Close() (err error) {
+	ps.cancel()
 	var errs []error
 	weakClose := func(name string, c interface{}) {
 		if cl, ok := c.(io.Closer); ok {
