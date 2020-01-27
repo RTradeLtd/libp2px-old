@@ -54,7 +54,9 @@ func newSender() (chan sendChans, func(s network.Stream)) {
 		scc <- sc
 
 		defer func() {
-			s.Close()
+			if s != nil {
+				s.Close()
+			}
 			sc.closed <- struct{}{}
 		}()
 
