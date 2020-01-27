@@ -21,6 +21,7 @@ before_script:
   - go test -run xxxx ./...
 
 script:
+  - ulimit -n 8192 # prevent errors from too many open files
   - diff -u <(echo -n) <(gofmt -d -s `find . -type f -name '*.go' -not -path "./vendor/*"`)
   # currently the codebase fails this heavily, so we wont do it now
   # - diff -u <(echo -n) <(golint `go list ./... | grep -v /vendor/`)

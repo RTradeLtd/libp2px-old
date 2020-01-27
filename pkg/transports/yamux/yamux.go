@@ -5,7 +5,7 @@ import (
 	"net"
 
 	mux "github.com/RTradeLtd/libp2px-core/mux"
-	yamux "github.com/RTradeLtd/libp2px/pkg/yamux"
+	yamux "github.com/RTradeLtd/libp2px/pkg/muxers/yamux"
 )
 
 // Conn is a connection to a remote peer.

@@ -12,9 +12,9 @@ import (
 	"github.com/RTradeLtd/libp2px-core/peer"
 	"go.uber.org/zap"
 
+	"github.com/RTradeLtd/libp2px/pkg/mdns"
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr-net"
-	"github.com/whyrusleeping/mdns"
 )
 
 func init() {

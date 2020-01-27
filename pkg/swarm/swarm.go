@@ -112,6 +112,10 @@ func NewSwarm(ctx context.Context, logger *zap.Logger, local peer.ID, peers peer
 	s.dsync = NewDialSync(s.doDial)
 	s.limiter = newDialLimiter(s.dialAddr)
 	s.ctx, s.cancel = context.WithCancel(ctx)
+	go func() {
+		<-s.ctx.Done()
+		s.teardown()
+	}()
 	return s
 }
 

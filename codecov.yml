@@ -6,3 +6,7 @@ coverage:
     project:
       default:
         threshold: 1
+  ignore:
+    - "**/pb" # ignore pb generated code directories
+    - "**/*.pb.go" # ignore generated pb code
+    - "**/*_test.go" # ignore tests

@@ -1,4 +1,4 @@
-<h1 align="center">LibP2PX ☄️</h1>
+<h1 align="center">LibP2P<u>X</u> 🌌</h1>
 
 <p align="center">
   <a href="#about"><strong>About</strong></a> ·
@@ -8,7 +8,34 @@
   <a href="#license"><strong>License</strong></a> ·
 </p>
 
-[![GoDoc](https://godoc.org/github.com/RTradeLtd/libp2px?status.svg)](https://godoc.org/github.com/RTradeLtd/libp2px) [![Build Status](https://travis-ci.com/RTradeLtd/libp2px.svg?branch=master)](https://travis-ci.com/RTradeLtd/libp2px) [![codecov](https://codecov.io/gh/RTradeLtd/libp2px/branch/master/graph/badge.svg)](https://codecov.io/gh/RTradeLtd/libp2px) [![Maintainability](https://api.codeclimate.com/v1/badges/eb5732a9c3200416782f/maintainability)](https://codeclimate.com/github/RTradeLtd/libp2px/maintainability)
+<p align="center">
+  <a href="https://godoc.org/github.com/RTradeLtd/libp2px">
+    <img src="https://godoc.org/github.com/RTradeLtd/libp2px?status.svg"
+       alt="GoDocs available" />
+  </a>
+  <a href="https://travis-ci.com/RTradeLtd/libp2px">
+    <img src="https://travis-ci.com/RTradeLtd/libp2px.svg?branch=master"
+      alt="Travis Build Status" />
+  </a>
+  <a href="https://github.com/RTradeLtd/libp2px/releases">
+    <img src="https://img.shields.io/github/release-pre/RTradeLtd/libp2px.svg"
+      alt="Release" />
+  </a>
+  </br>
+  <a href="https://codecov.io/gh/RTradeLtd/libp2px">
+    <img src="https://codecov.io/gh/RTradeLtd/libp2px/branch/master/graph/badge.svg" 
+        alt="Code Coverage"/>
+  </a>
+  <a href="https://codeclimate.com/github/RTradeLtd/libp2px/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/eb5732a9c3200416782f/maintainability" 
+        alt="Maintanability"/>
+  </a>
+  <a href="https://goreportcard.com/report/github.com/RTradeLtd/libp2px">
+    <img src="https://goreportcard.com/badge/github.com/RTradeLtd/libp2px"
+      alt="Clean code" />
+  </a>
+</p>
+</p>
 
 # About
 
@@ -51,7 +78,7 @@ One possible compatability issue is with secp256k1 keys being incompatible betwe
 
 ### Needs Investigation
 
-#### TestStBackpressureStreamWrite TestProtoDowngrade,TestHostProtoPreference, TestDefaultListenAddrs, TestNewDialOld Failures
+#### TestStBackpressureStreamWrite TestProtoDowngrade,TestHostProtoPreference, TestDefaultListenAddrs, TestNewDialOld, TestValidateOverload, TestPeerTopicReporting Failures
 
 Notice that in [this commit](https://github.com/RTradeLtd/libp2px/commit/b45de2ae197cb95aacb150c8a53490d81cacfdf7) the TravisCI builds passed. The important thing to take note of is that this commit uses the [IPFS ci helper scripts](https://github.com/ipfs/ci-helpers/blob/master/travis-ci/run-standard-tests.sh). However if you notice in [this commit](https://github.com/RTradeLtd/libp2px/commit/1e9958227c15fbfc446f356b4660a317b9e6efc9) when we switched to a different method of executing golang test tooling, we encounter build failures. I'm not yet sure why but this is repatable behavior. This needs investigation.
 
@@ -66,7 +93,29 @@ In terms of support for using this library from RTrade, we will be more than hap
 * `pkg` is where all the extra libp2p repositories are. For example things like `go-libp2p-loggables`, `go-libp2p-buffer-pool`, and all transports are here.
 * `p2p` is equivalent
 
+## pkg
 
+`pkg` contains various packages that may be useful to other users of `libp2px` including:
+
+| path | description |
+|------|-------------|
+| `pkg/autonat` | an autonat service implementation |
+| `pkg/blankhost` | a bare libp2px host implementation | 
+| `pkg/buffer-pool` | a memory buffer pool |
+| `pkg/discovery` | a service to discovert things |
+| `pkg/kbucket` | TODO | 
+| `pkg/mdns` | TODO |
+| `pkg/metrics` | TODO |
+| `pkg/msgio` | TODO |
+| `pkg/nat` | TODO | 
+| `pkg/peerstore` | a storage system for libp2px peers |
+| `pkg/pnet` | TODO |
+| `pkg/pubsub` | a libp2px pubsub implementation supporting gossipsub, floodsub, and randomsub |
+| `pkg/reuseport` | TODO |
+| `pkg/swarm` | a libp2px swarm manager | 
+| `pkg/transports` | contains a variety of libp2px transports, responsible for defining methods of connecting two peers |
+| `pkg/muxers` | contains a variety of connection multiplexers |
+  
 # License
 
 All original code is licensed under MIT+Apache, and we've included all the previous licenses. New code (aka, newly added transports, etc...) will be added with AGPLv3 licenses.
