@@ -31,7 +31,11 @@ func TestSparseGossipsub(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -72,7 +76,11 @@ func TestDenseGossipsub(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -113,7 +121,11 @@ func TestGossipsubFanout(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -182,7 +194,11 @@ func TestGossipsubFanoutMaintenance(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -265,7 +281,11 @@ func TestGossipsubFanoutExpiry(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 10)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -324,7 +344,11 @@ func TestGossipsubGossip(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -371,7 +395,11 @@ func TestGossipsubGossipPiggyback(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -440,6 +468,11 @@ func TestGossipsubGossipPropagation(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 20)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	hosts1 := hosts[:GossipSubD+1]
@@ -520,7 +553,11 @@ func TestGossipsubPrune(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -569,7 +606,11 @@ func TestGossipsubGraft(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	sparseConnect(t, hosts)
@@ -614,7 +655,11 @@ func TestGossipsubRemovePeer(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -664,6 +709,11 @@ func TestGossipsubGraftPruneRetry(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 10)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 	denseConnect(t, hosts)
 
@@ -714,6 +764,11 @@ func TestGossipsubControlPiggyback(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 10)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 	denseConnect(t, hosts)
 
@@ -795,7 +850,11 @@ func TestMixedGossipsub(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 30)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	gsubs := getGossipsubs(ctx, hosts[:20])
 	fsubs := getPubsubs(ctx, hosts[20:])
 	psubs := append(gsubs, fsubs...)
@@ -839,7 +898,11 @@ func TestGossipsubMultihops(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 6)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -882,6 +945,11 @@ func TestGossipsubTreeTopology(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 10)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getGossipsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
