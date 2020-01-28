@@ -46,8 +46,10 @@ func getNetHosts(t *testing.T, ctx context.Context, n int) []host.Host {
 }
 
 func connect(t *testing.T, a, b host.Host) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	defer cancel()
 	pinfo := a.Peerstore().PeerInfo(a.ID())
-	err := b.Connect(context.Background(), pinfo)
+	err := b.Connect(ctx, pinfo)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -121,7 +123,11 @@ func TestBasicFloodsub(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	hosts := getNetHosts(t, ctx, 20)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	var msgs []*Subscription
@@ -164,7 +170,11 @@ func TestMultihops(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 6)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -206,7 +216,11 @@ func TestReconnects(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 3)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -280,7 +294,11 @@ func TestNoConnection(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 10)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	ch, err := psubs[5].Subscribe("foobar")
@@ -305,7 +323,7 @@ func TestSelfReceive(t *testing.T) {
 	defer cancel()
 
 	host := getNetHosts(t, ctx, 1)[0]
-
+	defer host.Close()
 	psub, err := NewFloodSub(ctx, host)
 	if err != nil {
 		t.Fatal(err)
@@ -339,6 +357,11 @@ func TestOneToOne(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -358,6 +381,11 @@ func TestRegisterUnregisterValidator(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 1)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	err := psubs[0].RegisterTopicValidator("foo", func(context.Context, peer.ID, *Message) bool {
@@ -383,6 +411,11 @@ func TestValidate(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -565,6 +598,11 @@ func TestTreeTopology(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 10)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -628,7 +666,11 @@ func TestFloodSubPluggableProtocol(t *testing.T) {
 		defer cancel()
 
 		hosts := getNetHosts(t, ctx, 3)
-
+		defer func() {
+			for _, host := range hosts {
+				host.Close()
+			}
+		}()
 		psubA := mustCreatePubSub(ctx, t, hosts[0], "/esh/floodsub", "/lsr/floodsub")
 		psubB := mustCreatePubSub(ctx, t, hosts[1], "/esh/floodsub")
 		psubC := mustCreatePubSub(ctx, t, hosts[2], "/lsr/floodsub")
@@ -660,7 +702,11 @@ func TestFloodSubPluggableProtocol(t *testing.T) {
 		defer cancel()
 
 		hosts := getNetHosts(t, ctx, 2)
-
+		defer func() {
+			for _, host := range hosts {
+				host.Close()
+			}
+		}()
 		psubA := mustCreatePubSub(ctx, t, hosts[0], "/esh/floodsub")
 		psubB := mustCreatePubSub(ctx, t, hosts[1], "/lsr/floodsub")
 
@@ -715,6 +761,7 @@ func TestSubReporting(t *testing.T) {
 	defer cancel()
 
 	host := getNetHosts(t, ctx, 1)[0]
+	defer host.Close()
 	psub, err := NewFloodSub(ctx, host)
 	if err != nil {
 		t.Fatal(err)
@@ -758,6 +805,11 @@ func TestPeerTopicReporting(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 4)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -815,6 +867,11 @@ func TestSubscribeMultipleTimes(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -861,6 +918,11 @@ func TestPeerDisconnect(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	connect(t, hosts[0], hosts[1])
@@ -919,6 +981,11 @@ func TestWithSigning(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts, WithStrictSignatureVerification(true))
 
 	connect(t, hosts[0], hosts[1])
@@ -955,6 +1022,11 @@ func TestImproperlySignedMessageRejected(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	adversary := hosts[0]
 	honestPeer := hosts[1]
 
@@ -1073,6 +1145,11 @@ func TestMessageSender(t *testing.T) {
 	const topic = "foobar"
 
 	hosts := getNetHosts(t, ctx, 3)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	var msgs []*Subscription
