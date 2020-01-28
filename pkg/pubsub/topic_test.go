@@ -420,6 +420,11 @@ func TestSubscriptionManyNotifications(t *testing.T) {
 
 	const numHosts = 33
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	topics := getTopics(getPubsubs(ctx, hosts), topic)
 	evts := getTopicEvts(topics)
 
@@ -525,6 +530,11 @@ func TestSubscriptionNotificationSubUnSub(t *testing.T) {
 
 	const numHosts = 35
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	topics := getTopics(getPubsubs(ctx, hosts), topic)
 
 	for i := 1; i < numHosts; i++ {

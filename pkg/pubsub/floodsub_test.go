@@ -1005,6 +1005,7 @@ func TestWithSigning(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// TODO(bonedaddy): this is hanging for some reason
 	msg, err := sub.Next(ctx)
 	if err != nil {
 		t.Fatal(err)
