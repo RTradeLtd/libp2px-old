@@ -78,6 +78,11 @@ func testTopicCloseWithOpenResource(t *testing.T, openResource func(topic *Topic
 	const numHosts = 1
 	topicID := "foobar"
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	ps := getPubsub(ctx, hosts[0])
 
 	// Try create and cancel topic
@@ -118,7 +123,11 @@ func TestTopicReuse(t *testing.T) {
 	const numHosts = 2
 	topicID := "foobar"
 	hosts := getNetHosts(t, ctx, numHosts)
-
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	sender := getPubsub(ctx, hosts[0], WithDiscovery(&dummyDiscovery{}))
 	receiver := getPubsub(ctx, hosts[1])
 
@@ -215,6 +224,11 @@ func TestTopicEventHandlerCancel(t *testing.T) {
 	const numHosts = 5
 	topicID := "foobar"
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	ps := getPubsub(ctx, hosts[0])
 
 	// Try create and cancel topic
@@ -247,6 +261,11 @@ func TestSubscriptionJoinNotification(t *testing.T) {
 	const numLateSubscribers = 10
 	const numHosts = 20
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	topics := getTopics(getPubsubs(ctx, hosts), "foobar")
 	evts := getTopicEvts(topics)
 
@@ -313,6 +332,11 @@ func TestSubscriptionLeaveNotification(t *testing.T) {
 
 	const numHosts = 20
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 	topics := getTopics(psubs, "foobar")
 	evts := getTopicEvts(topics)
@@ -396,6 +420,11 @@ func TestSubscriptionManyNotifications(t *testing.T) {
 
 	const numHosts = 33
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	topics := getTopics(getPubsubs(ctx, hosts), topic)
 	evts := getTopicEvts(topics)
 
@@ -501,6 +530,11 @@ func TestSubscriptionNotificationSubUnSub(t *testing.T) {
 
 	const numHosts = 35
 	hosts := getNetHosts(t, ctx, numHosts)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	topics := getTopics(getPubsubs(ctx, hosts), topic)
 
 	for i := 1; i < numHosts; i++ {

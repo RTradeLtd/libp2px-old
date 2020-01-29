@@ -40,6 +40,11 @@ func TestBlacklist(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 	connect(t, hosts[0], hosts[1])
 
@@ -68,6 +73,11 @@ func TestBlacklist2(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 	connect(t, hosts[0], hosts[1])
 
@@ -101,6 +111,11 @@ func TestBlacklist3(t *testing.T) {
 	defer cancel()
 
 	hosts := getNetHosts(t, ctx, 2)
+	defer func() {
+		for _, host := range hosts {
+			host.Close()
+		}
+	}()
 	psubs := getPubsubs(ctx, hosts)
 
 	psubs[1].BlacklistPeer(hosts[0].ID())

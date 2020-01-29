@@ -271,6 +271,8 @@ loop:
 		rcount++
 
 		select {
+		case <-ctx.Done():
+			return false
 		case val.validateThrottle <- struct{}{}:
 			go func(val *topicVal) {
 				rch <- val.validateMsg(ctx, src, msg)
