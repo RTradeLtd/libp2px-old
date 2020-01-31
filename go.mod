@@ -5,7 +5,7 @@ require (
 	github.com/davidlazar/go-crypto v0.0.0-20190912175916-7055855a373f
 	github.com/gogo/protobuf v1.3.1
 	github.com/gorilla/websocket v1.4.1
-	github.com/hashicorp/golang-lru v0.5.3
+	github.com/hashicorp/golang-lru v0.5.4
 	github.com/huin/goupnp v1.0.0
 	github.com/ipfs/go-cid v0.0.4
 	github.com/ipfs/go-detect-race v0.0.1
