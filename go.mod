@@ -14,7 +14,7 @@ require (
 	github.com/jackpal/go-nat-pmp v1.0.2
 	github.com/jbenet/go-temp-err-catcher v0.0.0-20150120210811-aac704a3f4f2
 	github.com/koron/go-ssdp v0.0.0-20191105050749-2e1c40ed0b5d
-	github.com/lucas-clemente/quic-go v0.14.1
+	github.com/lucas-clemente/quic-go v0.14.3
 	github.com/miekg/dns v1.1.27
 	github.com/minio/sha256-simd v0.1.1
 	github.com/multiformats/go-multiaddr v0.2.0
